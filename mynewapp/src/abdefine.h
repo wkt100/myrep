@@ -125,10 +125,8 @@ extern const int ABN_TextVarSig19;
 #define ABW_TextVarSig19                     AbGetABW( ABN_TextVarSig19 )
 extern const int ABN_TextVarSig20;
 #define ABW_TextVarSig20                     AbGetABW( ABN_TextVarSig20 )
-
-/* 'Window0' Window link */
-extern const int ABN_Window0;
-#define ABW_Window0                          AbGetABW( ABN_Window0 )
+extern const int ABN_TimerRefresh;
+#define ABW_TimerRefresh                     AbGetABW( ABN_TimerRefresh )
 
 #define AbGetABW( n ) ( AbWidgets[ n ].wgt )
 

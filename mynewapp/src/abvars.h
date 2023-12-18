@@ -63,7 +63,5 @@ const int ABN_TextVarSig17 = 58;
 const int ABN_TextVarSig18 = 59;
 const int ABN_TextVarSig19 = 60;
 const int ABN_TextVarSig20 = 61;
-
-/* 'Window0' Window link */
-const int ABN_Window0 = 62;
+const int ABN_TimerRefresh = 62;
 
