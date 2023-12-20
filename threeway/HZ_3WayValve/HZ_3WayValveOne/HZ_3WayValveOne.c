@@ -25,13 +25,13 @@ static void HZ_3WayValveOne_dflts(PtWidget_t *widget )
 
 	otherone = (HZ_3WayValveOneWidget *) widget;
 	label = ( PtLabelWidget_t * ) widget;
-	otherone->hz_height = 50;
-	otherone->hz_width = 50;
+	otherone->hz_height = 1256;
+	otherone->hz_width = 242;
 	otherone->hz_rotates = HZ_3WayValveOne_0;
 	otherone->hz_color = PgRGB(128, 138, 135);
 	otherone->hz_frame_color = PgRGB(0, 0, 0);
 	otherone->hz_q = HZ_3WayValveOne_NoneS;
-//	label->basic.fill_color = PgRGB(222, 222, 222);
+//	label->basic.fill_color = PgRGB(222, 222, 222);	// ±³¾°ÑÕÉ«£¬ken
 }
 
 static void HZ_3WayValveOne_draw(PtWidget_t *widget, PhTile_t *damage )
@@ -65,9 +65,15 @@ static void HZ_3WayValveOne_draw(PtWidget_t *widget, PhTile_t *damage )
 		{
 				PgDrawILine(rect.lr.x - width / 4, rect.ul.y + height / 4, rect.lr.x - width / 4, rect.lr.y - height / 4);
 				PgDrawILine(rect.lr.x - width / 4, rect.ul.y + height / 2, rect.lr.x - width / 2, rect.ul.y + height / 2);
-				PhPoint_t p1[] = {rect.lr.x - width / 4, rect.ul.y, -width / 2, 0, width / 4, height / 2};
-				PhPoint_t p2[] = {rect.lr.x - width / 4, rect.lr.y, -width / 2, 0, width / 4, -height / 2};
-				PhPoint_t p3[] = {rect.lr.x - width / 2, rect.ul.y + height / 2, -width / 2, -height / 4, 0, height / 2};
+				PhPoint_t p1[] = {	{rect.lr.x - width / 4, rect.ul.y},
+									{-width / 2, 0},
+									{width / 4, height / 2}};
+				PhPoint_t p2[] = {	{rect.lr.x - width / 4, rect.lr.y},
+									{-width / 2}, {0},
+									{width / 4, -height / 2}};
+				PhPoint_t p3[] = {	{rect.lr.x - width / 2, rect.ul.y + height / 2},
+									{-width / 2}, {-height / 4},
+									{0, height / 2}};
 				PgDrawPolygon(p1, 3, &o, Pg_DRAW_FILL | Pg_RELATIVE);
 				PgDrawPolygon(p2, 3, &o, Pg_DRAW_FILL | Pg_RELATIVE);
 				PgDrawPolygon(p3, 3, &o, Pg_DRAW_FILL | Pg_RELATIVE);
@@ -77,9 +83,15 @@ static void HZ_3WayValveOne_draw(PtWidget_t *widget, PhTile_t *damage )
 		{
 				PgDrawILine(rect.ul.x + width / 4, rect.lr.y - height / 4, rect.lr.x - width / 4, rect.lr.y - height / 4);
 				PgDrawILine(rect.ul.x + width / 2, rect.lr.y - height / 4, rect.ul.x + width / 2, rect.lr.y - height / 2);
-				PhPoint_t p1[] = {rect.ul.x, rect.lr.y - height / 4, 0, -height / 2, width / 2, height / 4};
-				PhPoint_t p2[] = {rect.lr.x, rect.lr.y - height / 4, 0, -height / 2, -width / 2, height / 4};
-				PhPoint_t p3[] = {rect.ul.x + width / 2, rect.lr.y - height / 2, -width / 4, -height / 2, width / 2, 0};
+				PhPoint_t p1[] = {	{rect.ul.x, rect.lr.y - height / 4},
+									{0, -height / 2},
+									{width / 2, height / 4}	};
+				PhPoint_t p2[] = {	{rect.lr.x, rect.lr.y - height / 4},
+									{0, -height / 2},
+									{-width / 2, height / 4}	};
+				PhPoint_t p3[] = {	{rect.ul.x + width / 2, rect.lr.y - height / 2},
+									{-width / 4, -height / 2},
+									{width / 2, 0}	};
 				PgDrawPolygon(p1, 3, &o, Pg_DRAW_FILL | Pg_RELATIVE);
 				PgDrawPolygon(p2, 3, &o, Pg_DRAW_FILL | Pg_RELATIVE);
 				PgDrawPolygon(p3, 3, &o, Pg_DRAW_FILL | Pg_RELATIVE);
@@ -89,9 +101,15 @@ static void HZ_3WayValveOne_draw(PtWidget_t *widget, PhTile_t *damage )
 		{
 				PgDrawILine(rect.ul.x + width / 4, rect.ul.y + height / 4, rect.ul.x + width / 4, rect.lr.y - height / 4);
 				PgDrawILine(rect.ul.x + width / 4, rect.ul.y + height / 2, rect.ul.x + width / 2, rect.ul.y + height / 2);
-				PhPoint_t p1[] = {rect.ul.x + width / 4, rect.ul.y, width / 2, 0, -width / 4, height / 2};
-				PhPoint_t p2[] = {rect.ul.x + width / 4, rect.lr.y, width / 2, 0, -width / 4, -height / 2};
-				PhPoint_t p3[] = {rect.ul.x + width / 2, rect.ul.y + height / 2, width / 2, -height / 4, 0, height / 2};
+				PhPoint_t p1[] = {	{rect.ul.x + width / 4, rect.ul.y},
+									{width / 2, 0},
+									{-width / 4, height / 2}	};
+				PhPoint_t p2[] = {	{rect.ul.x + width / 4, rect.lr.y},
+									{width / 2, 0},
+									{-width / 4, -height / 2}	};
+				PhPoint_t p3[] = {	{rect.ul.x + width / 2, rect.ul.y + height / 2},
+									{width / 2, -height / 4},
+									{0, height / 2}	};
 				PgDrawPolygon(p1, 3, &o, Pg_DRAW_FILL | Pg_RELATIVE);
 				PgDrawPolygon(p2, 3, &o, Pg_DRAW_FILL | Pg_RELATIVE);
 				PgDrawPolygon(p3, 3, &o, Pg_DRAW_FILL | Pg_RELATIVE);
@@ -101,12 +119,20 @@ static void HZ_3WayValveOne_draw(PtWidget_t *widget, PhTile_t *damage )
 		{
 			PgDrawILine(rect.ul.x + width / 4, rect.ul.y + height / 4, rect.lr.x - width / 4, rect.ul.y + height / 4);
 			PgDrawILine(rect.ul.x + width / 2, rect.ul.y + height / 4, rect.ul.x + width / 2, rect.ul.y + height / 2);
-			PhPoint_t p1[] = {rect.ul.x, rect.ul.y + height / 4, 0, height / 2, width / 2, - height / 4};
-			PhPoint_t p2[] = {rect.lr.x, rect.ul.y + height / 4, 0, height / 2, -width / 2, - height / 4};
-			PhPoint_t p3[] = {rect.ul.x + width / 2, rect.ul.y + height / 2, -width / 4, height / 2, width / 2, 0};
-			PgDrawPolygon(p1, 3, &o, Pg_DRAW_FILL | Pg_RELATIVE);
-			PgDrawPolygon(p2, 3, &o, Pg_DRAW_FILL | Pg_RELATIVE);
-			PgDrawPolygon(p3, 3, &o, Pg_DRAW_FILL | Pg_RELATIVE);
+			PhPoint_t p1[] = {	{rect.ul.x, rect.ul.y + height / 4},
+								{0, height / 2},
+								{width / 2, - height / 4}	};
+			PhPoint_t p2[] = {	{rect.lr.x, rect.ul.y + height / 4},
+								{0, height / 2},
+								{-width / 2, - height / 4}	};
+			PhPoint_t p3[] = {	{rect.ul.x + width / 2, rect.ul.y + height / 2},
+								{-width / 4, height / 2},
+								{width / 2, 0}	};
+
+			PgDrawPolygon(p1, 3, &o, Pg_DRAW_FILL_STROKE | Pg_CLOSED | Pg_RELATIVE);
+			PgDrawPolygon(p2, 3, &o, Pg_DRAW_FILL_STROKE | Pg_CLOSED | Pg_RELATIVE);
+			PgDrawPolygon(p3, 3, &o, Pg_DRAW_FILL_STROKE | Pg_CLOSED | Pg_RELATIVE);
+
 			break;
 		}
 	}
