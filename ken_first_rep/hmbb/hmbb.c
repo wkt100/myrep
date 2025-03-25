@@ -21,6 +21,14 @@ typedef enum {
     CRY          /* 哭泣表情 */
 } FaceState;
 
+/* 自定义颜色，使用PgRGB函数 */
+#define Pg_SPONGE_YELLOW   PgRGB(255, 222, 0)   /* 海绵宝宝的黄色 */
+#define Pg_DARKBROWN       PgRGB(76, 43, 0)     /* 深棕色 */
+#define Pg_LIGHTBROWN      PgRGB(150, 85, 0)    /* 浅棕色 */
+#define Pg_PINK            PgRGB(255, 150, 150) /* 粉红色 */
+#define Pg_SKY_BLUE        PgRGB(135, 206, 235) /* 天蓝色 */
+#define Pg_TEAR_BLUE       PgRGB(0, 191, 255)   /* 眼泪蓝色 */
+
 /* 全局变量 - 当前表情状态 */
 FaceState current_face = NORMAL;
 
@@ -28,196 +36,336 @@ FaceState current_face = NORMAL;
 void draw_mouth(FaceState state) {
     /* 设置黑色绘图 */
     PgSetStrokeColor(Pg_BLACK);
+    PgSetStrokeWidth(2);
     
     switch(state) {
-        case SMILE:  /* 微笑表情 - 嘴角上扬 */
+        case SMILE:  /* 微笑表情 - 更自然的微笑曲线 */
             DEBUG_PRINT("绘制微笑表情\n");
-            PgDrawILine(160, 260, 180, 280);
-            PgDrawILine(180, 280, 200, 290);
-            PgDrawILine(200, 290, 220, 280);
-            PgDrawILine(220, 280, 240, 260);
+            /* 绘制笑脸 - 使用扇形 */
+            {
+                PhPoint_t center = {200, 250};  /* 中心点 */
+                PhPoint_t radius = {40, 20};    /* 半径 */
+                PgSetFillColor(Pg_BLACK);
+                PgDrawArc(&center, &radius, 0, 180, Pg_DRAW_FILL | Pg_ARC_CHORD);
+            }
             break;
             
-        case CRY:    /* 哭泣表情 - 嘴角下垂，添加眼泪 */
+        case CRY:    /* 哭泣表情 - 更夸张的哭泣效果 */
             DEBUG_PRINT("绘制哭泣表情\n");
-            /* 嘴巴下垂 */
-            PgDrawILine(160, 280, 180, 270);
-            PgDrawILine(180, 270, 200, 260);
-            PgDrawILine(200, 260, 220, 270);
-            PgDrawILine(220, 270, 240, 280);
+            /* 嘴巴下垂 - 使用扇形 */
+            {
+                PhPoint_t center = {200, 250};  /* 中心点 */
+                PhPoint_t radius = {40, 20};    /* 半径 */
+                PgSetFillColor(Pg_BLACK);
+                PgDrawArc(&center, &radius, 180, 360, Pg_DRAW_FILL | Pg_ARC_CHORD);
+            }
             
-            /* 眼泪 - 蓝色 */
-            PgSetFillColor(Pg_BLUE);
-            PhRect_t tear1 = {{165, 195}, {175, 230}};
-            PhRect_t tear2 = {{225, 195}, {235, 230}};
-            PgDrawRect(&tear1, Pg_DRAW_FILL);
-            PgDrawRect(&tear2, Pg_DRAW_FILL);
+            /* 眼泪 - 蓝色，更大更夸张 */
+            PgSetFillColor(Pg_TEAR_BLUE);
+            
+            /* 左眼泪 */
+            {
+                PhPoint_t leftTearCenter = {150, 210};
+                PhPoint_t leftTearRadius = {10, 20};
+                PgDrawArc(&leftTearCenter, &leftTearRadius, 0, 360, Pg_DRAW_FILL | Pg_ARC_PIE);
+            }
+            
+            /* 左泪滴 */
+            {
+                PhPoint_t leftDropPoints[] = {
+                    {150, 245},  /* 顶点 */
+                    {140, 260},  /* 左侧 */
+                    {150, 270},  /* 底部 */
+                    {160, 260}   /* 右侧 */
+                };
+                PhPoint_t leftDropOffset = {0, 0};
+                PgDrawPolygon(leftDropPoints, 4, &leftDropOffset, Pg_DRAW_FILL | Pg_CLOSED);
+            }
+            
+            /* 右眼泪 */
+            {
+                PhPoint_t rightTearCenter = {250, 210};
+                PhPoint_t rightTearRadius = {10, 20};
+                PgDrawArc(&rightTearCenter, &rightTearRadius, 0, 360, Pg_DRAW_FILL | Pg_ARC_PIE);
+            }
+            
+            /* 右泪滴 */
+            {
+                PhPoint_t rightDropPoints[] = {
+                    {250, 245},  /* 顶点 */
+                    {240, 260},  /* 左侧 */
+                    {250, 270},  /* 底部 */
+                    {260, 260}   /* 右侧 */
+                };
+                PhPoint_t rightDropOffset = {0, 0};
+                PgDrawPolygon(rightDropPoints, 4, &rightDropOffset, Pg_DRAW_FILL | Pg_CLOSED);
+            }
+            
             break;
             
-        case NORMAL:     /* 普通表情 - 直线嘴巴 */
+        case NORMAL:     /* 普通表情 - 简单的直线 */
             DEBUG_PRINT("绘制普通表情\n");
-            PgDrawILine(160, 260, 200, 280);
-            PgDrawILine(200, 280, 240, 260);
+            PgDrawILine(160, 240, 240, 240);
             break;
             
         default:     /* 默认也是普通表情 - 保障安全性 */
             DEBUG_PRINT("绘制默认表情（普通）\n");
-            PgDrawILine(160, 260, 200, 280);
-            PgDrawILine(200, 280, 240, 260);
+            PgDrawILine(160, 240, 240, 240);
             break;
     }
 }
 
-/* 定义海绵宝宝绘图函数 */
-int draw_spongebob(PtWidget_t *widget, PhTile_t *damage) {
-    /* 使用标准矩形结构 */
-    PhRect_t rect;
+/* 绘制海绵宝宝 */
+void draw_spongebob(PtWidget_t *widget, void *data) {
     PhRect_t canvasRect = {{0, 0}, {0, 0}}; /* 初始化为空矩形 */
+    int i = 0;
+    short pos_x = 0, pos_y = 0;
     
     DEBUG_PRINT("开始绘制海绵宝宝...\n");
     DEBUG_PRINT("当前表情状态: %d\n", current_face);
     
     /* 检查widget指针 */
     if (!widget) {
-        fprintf(stderr, "警告：draw_spongebob 收到空widget指针，尝试直接绘制\n");
-        /* 即使没有widget，也尝试绘制到默认图形上下文 */
+        fprintf(stderr, "无效的widget指针\n");
+        return;
     }
     
-    /* 固定使用画布大小 */
-    canvasRect.ul.x = 0; 
-    canvasRect.ul.y = 0;
-    canvasRect.lr.x = 400; 
+    /* 使用固定的画布区域 - 避免使用可能有问题的函数 */
+    canvasRect.ul.x = 50;
+    canvasRect.ul.y = 50;
+    canvasRect.lr.x = 350;
     canvasRect.lr.y = 380;
     
-    DEBUG_PRINT("画布区域: (%d,%d) - (%d,%d)\n", 
-           canvasRect.ul.x, canvasRect.ul.y, 
-           canvasRect.lr.x, canvasRect.lr.y);
+    DEBUG_PRINT("画布区域: (%d,%d) - (%d,%d)\n",
+            canvasRect.ul.x, canvasRect.ul.y, 
+            canvasRect.lr.x, canvasRect.lr.y);
     
-    /* 设置绘图上下文 */
-    PgSetDrawBufferSize(0);
-    PgSetDrawMode(Pg_DRAWMODE_OPAQUE);
-    
-    /* 清除背景 */
-    PgSetFillColor(Pg_DGRAY);
-    rect.ul.x = 50;
-    rect.ul.y = 50;
-    rect.lr.x = 350;
-    rect.lr.y = 380;
-    if (PgDrawRect(&rect, Pg_DRAW_FILL) == -1) {
+    /* 设置背景色为天蓝色 */
+    PgSetFillColor(Pg_SKY_BLUE);
+    if (PgDrawRect(&canvasRect, Pg_DRAW_FILL) != 0) {
         fprintf(stderr, "背景绘制失败\n");
     } else {
         DEBUG_PRINT("背景绘制成功\n");
     }
     
-    /* 绘制身体（黄色矩形） */
-    PgSetFillColor(0xFFFF00);
-    rect.ul.x = 100;
-    rect.ul.y = 100;
-    rect.lr.x = 300;
-    rect.lr.y = 350;
-    if (PgDrawRect(&rect, Pg_DRAW_FILL) == -1) {
+    /* 绘制斑点 - 海绵宝宝特有的孔洞 */
+    PgSetFillColor(PgRGB(255, 200, 0)); /* 稍深的黄色 */
+    PhRect_t spots[] = {
+        {{110, 110}, {120, 120}},
+        {{150, 130}, {160, 140}},
+        {{200, 115}, {215, 130}},
+        {{250, 140}, {265, 155}},
+        {{130, 190}, {145, 205}},
+        {{230, 240}, {245, 255}},
+        {{180, 280}, {195, 295}}
+    };
+    
+    for (i = 0; i < sizeof(spots)/sizeof(spots[0]); i++) {
+        PgDrawRect(&spots[i], Pg_DRAW_FILL);
+    }
+    
+    /* 绘制身体 - 使用更圆润的矩形 */
+    PhRect_t bodyRect = {{100, 100}, {300, 300}};
+    PgSetFillColor(Pg_SPONGE_YELLOW);
+    if (PgDrawRect(&bodyRect, Pg_DRAW_FILL) != 0) {
         fprintf(stderr, "身体绘制失败\n");
     } else {
         DEBUG_PRINT("身体绘制成功\n");
     }
     
-    /* 绘制眼睛（白色圆形） */
+    /* 绘制衬衫 - 白色 */
+    PhRect_t shirtRect = {{100, 220}, {300, 300}};
+    PgSetFillColor(Pg_WHITE);
+    if (PgDrawRect(&shirtRect, Pg_DRAW_FILL) != 0) {
+        fprintf(stderr, "衣服绘制失败\n");
+    }
+    
+    /* 绘制衣服褶皱 */
+    PgSetStrokeColor(Pg_DGREY);
+    PgDrawILine(150, 220, 150, 300);  /* 左侧褶皱 */
+    PgDrawILine(250, 220, 250, 300);  /* 右侧褶皱 */
+    PgDrawILine(100, 260, 300, 260);  /* 中间褶皱 */
+    
+    /* 绘制领带 - 红色 */
+    PgSetFillColor(Pg_RED);
+    
+    /* 领带结 */
+    PhRect_t tieKnot = {{185, 220}, {215, 240}};
+    PgDrawRect(&tieKnot, Pg_DRAW_FILL);
+    
+    /* 领带带子 - 使用多边形 */
+    PhPoint_t tiePoints[] = {
+        {200, 240},  /* 起点 */
+        {185, 260},  /* 左点 */
+        {200, 280},  /* 中点 */
+        {215, 260}   /* 右点 */
+    };
+    PhPoint_t tieOffset = {0, 0};
+    PgDrawPolygon(tiePoints, 4, &tieOffset, Pg_DRAW_FILL | Pg_CLOSED);
+    
+    /* 绘制眼睛 - 大大的白色眼睛 */
     PgSetFillColor(Pg_WHITE);
     
-    /* 左眼 */
-    rect.ul.x = 140;
-    rect.ul.y = 150;
-    rect.lr.x = 200;
-    rect.lr.y = 210;
-    PgDrawRect(&rect, Pg_DRAW_FILL);
+    /* 左眼白 - 椭圆形 */
+    {
+        PhPoint_t leftEyeCenter = {150, 175};
+        PhPoint_t leftEyeRadius = {30, 25};
+        PgDrawEllipse(&leftEyeCenter, &leftEyeRadius, Pg_DRAW_FILL);
+    }
     
-    /* 右眼 */
-    rect.ul.x = 200;
-    rect.ul.y = 150;
-    rect.lr.x = 260;
-    rect.lr.y = 210;
-    PgDrawRect(&rect, Pg_DRAW_FILL);
+    /* 右眼白 - 椭圆形 */
+    {
+        PhPoint_t rightEyeCenter = {250, 175};
+        PhPoint_t rightEyeRadius = {30, 25};
+        PgDrawEllipse(&rightEyeCenter, &rightEyeRadius, Pg_DRAW_FILL);
+    }
     
-    /* 眼球（蓝色圆形） */
-    PgSetFillColor(Pg_BLUE);
+    /* 绘制眼睛轮廓 */
+    PgSetStrokeColor(Pg_BLACK);
+    {
+        PhPoint_t leftEyeCenter = {150, 175};
+        PhPoint_t leftEyeRadius = {30, 25};
+        PgDrawEllipse(&leftEyeCenter, &leftEyeRadius, Pg_DRAW_STROKE);
+    }
+    {
+        PhPoint_t rightEyeCenter = {250, 175};
+        PhPoint_t rightEyeRadius = {30, 25};
+        PgDrawEllipse(&rightEyeCenter, &rightEyeRadius, Pg_DRAW_STROKE);
+    }
     
-    /* 左眼球 */
-    rect.ul.x = 155;
-    rect.ul.y = 165;
-    rect.lr.x = 185;
-    rect.lr.y = 195;
-    PgDrawRect(&rect, Pg_DRAW_FILL);
+    /* 绘制瞳孔 - 蓝色 */
+    PgSetFillColor(Pg_DBLUE);
     
-    /* 右眼球 */
-    rect.ul.x = 215;
-    rect.ul.y = 165;
-    rect.lr.x = 245;
-    rect.lr.y = 195;
-    PgDrawRect(&rect, Pg_DRAW_FILL);
+    /* 左瞳孔 */
+    {
+        PhPoint_t leftPupilCenter = {150, 175};
+        PhPoint_t leftPupilRadius = {10, 10};
+        PgDrawEllipse(&leftPupilCenter, &leftPupilRadius, Pg_DRAW_FILL);
+    }
     
-    /* 鼻子（棕色） */
-    PgSetFillColor(0xA52A2A);
-    rect.ul.x = 190;
-    rect.ul.y = 210;
-    rect.lr.x = 210;
-    rect.lr.y = 230;
-    PgDrawRect(&rect, Pg_DRAW_FILL);
+    /* 右瞳孔 */
+    {
+        PhPoint_t rightPupilCenter = {250, 175};
+        PhPoint_t rightPupilRadius = {10, 10};
+        PgDrawEllipse(&rightPupilCenter, &rightPupilRadius, Pg_DRAW_FILL);
+    }
+    
+    /* 高光效果 */
+    PgSetFillColor(Pg_WHITE);
+    {
+        PhPoint_t leftHighlightCenter = {147, 172};
+        PhPoint_t leftHighlightRadius = {2, 2};
+        PgDrawEllipse(&leftHighlightCenter, &leftHighlightRadius, Pg_DRAW_FILL);
+    }
+    {
+        PhPoint_t rightHighlightCenter = {247, 172};
+        PhPoint_t rightHighlightRadius = {2, 2};
+        PgDrawEllipse(&rightHighlightCenter, &rightHighlightRadius, Pg_DRAW_FILL);
+    }
+    
+    /* 绘制眉毛 */
+    PgSetStrokeColor(Pg_BLACK);
+    PgSetStrokeWidth(2);
+    
+    /* 绘制睫毛 */
+    PgSetStrokeWidth(1);
+    PgDrawILine(130, 145, 140, 140);  /* 左眼左侧睫毛 */
+    PgDrawILine(150, 140, 150, 130);  /* 左眼中间睫毛 */
+    PgDrawILine(170, 145, 160, 140);  /* 左眼右侧睫毛 */
+    
+    PgDrawILine(230, 145, 240, 140);  /* 右眼左侧睫毛 */
+    PgDrawILine(250, 140, 250, 130);  /* 右眼中间睫毛 */
+    PgDrawILine(270, 145, 260, 140);  /* 右眼右侧睫毛 */
+    
+    /* 绘制鼻子 - 黄色 */
+    PgSetFillColor(Pg_SPONGE_YELLOW);
+    {
+        PhPoint_t noseCenter = {200, 200};
+        PhPoint_t noseRadius = {10, 20};
+        PgDrawEllipse(&noseCenter, &noseRadius, Pg_DRAW_FILL);
+    }
+    PgSetStrokeColor(Pg_BLACK);
+    {
+        PhPoint_t noseCenter = {200, 200};
+        PhPoint_t noseRadius = {10, 20};
+        PgDrawEllipse(&noseCenter, &noseRadius, Pg_DRAW_STROKE);
+    }
+    
+    /* 绘制腮红 */
+    PgSetFillColor(Pg_PINK);
+    {
+        PhPoint_t leftCheekCenter = {130, 210};
+        PhPoint_t leftCheekRadius = {10, 10};
+        PgDrawEllipse(&leftCheekCenter, &leftCheekRadius, Pg_DRAW_FILL);
+    }
+    {
+        PhPoint_t rightCheekCenter = {270, 210};
+        PhPoint_t rightCheekRadius = {10, 10};
+        PgDrawEllipse(&rightCheekCenter, &rightCheekRadius, Pg_DRAW_FILL);
+    }
+    
+    /* 绘制牙齿 */
+    PgSetFillColor(Pg_WHITE);
+    PhRect_t leftToothRect = {{170, 250}, {185, 260}};
+    PhRect_t rightToothRect = {{215, 250}, {230, 260}};
+    PgDrawRect(&leftToothRect, Pg_DRAW_FILL);
+    PgDrawRect(&rightToothRect, Pg_DRAW_FILL);
+    PgSetStrokeColor(Pg_BLACK);
+    PgDrawRect(&leftToothRect, Pg_DRAW_STROKE);
+    PgDrawRect(&rightToothRect, Pg_DRAW_STROKE);
     
     /* 绘制嘴巴 - 根据当前表情状态 */
     DEBUG_PRINT("调用draw_mouth绘制嘴巴，表情状态: %d\n", current_face);
     draw_mouth(current_face);
     
-    /* 绘制斑点（棕色小点） */
-    PgSetFillColor(0xA52A2A);
+    /* 绘制手臂 */
+    PgSetFillColor(Pg_SPONGE_YELLOW);
+    PhRect_t leftArmRect = {{80, 230}, {100, 290}};
+    PhRect_t rightArmRect = {{300, 230}, {320, 290}};
+    PgDrawRect(&leftArmRect, Pg_DRAW_FILL);
+    PgDrawRect(&rightArmRect, Pg_DRAW_FILL);
     
-    rect.ul.x = 125;
-    rect.ul.y = 145;
-    rect.lr.x = 135;
-    rect.lr.y = 155;
-    PgDrawRect(&rect, Pg_DRAW_FILL);
+    /* 绘制手 */
+    {
+        PhPoint_t leftHandCenter = {70, 290};
+        PhPoint_t leftHandRadius = {10, 10};
+        PgDrawEllipse(&leftHandCenter, &leftHandRadius, Pg_DRAW_FILL);
+    }
+    {
+        PhPoint_t rightHandCenter = {330, 290};
+        PhPoint_t rightHandRadius = {10, 10};
+        PgDrawEllipse(&rightHandCenter, &rightHandRadius, Pg_DRAW_FILL);
+    }
     
-    rect.ul.x = 265;
-    rect.ul.y = 145;
-    rect.lr.x = 275;
-    rect.lr.y = 155;
-    PgDrawRect(&rect, Pg_DRAW_FILL);
+    /* 绘制裤子 - 棕色 */
+    PhRect_t pantsRect = {{100, 300}, {300, 330}};
+    PgSetFillColor(Pg_BROWN);
+    if (PgDrawRect(&pantsRect, Pg_DRAW_FILL) != 0) {
+        fprintf(stderr, "裤子绘制失败\n");
+    }
     
-    rect.ul.x = 145;
-    rect.ul.y = 295;
-    rect.lr.x = 155;
-    rect.lr.y = 305;
-    PgDrawRect(&rect, Pg_DRAW_FILL);
+    /* 绘制腰带 */
+    PgSetFillColor(Pg_BLACK);
+    PhRect_t beltRect = {{100, 300}, {300, 310}};
+    PgDrawRect(&beltRect, Pg_DRAW_FILL);
     
-    rect.ul.x = 245;
-    rect.ul.y = 295;
-    rect.lr.x = 255;
-    rect.lr.y = 305;
-    PgDrawRect(&rect, Pg_DRAW_FILL);
+    /* 绘制裤腿 */
+    PgSetFillColor(Pg_BROWN);
+    PhRect_t leftLegRect = {{120, 330}, {150, 350}};
+    PhRect_t rightLegRect = {{250, 330}, {280, 350}};
+    PgDrawRect(&leftLegRect, Pg_DRAW_FILL);
+    PgDrawRect(&rightLegRect, Pg_DRAW_FILL);
     
-    rect.ul.x = 195;
-    rect.ul.y = 315;
-    rect.lr.x = 205;
-    rect.lr.y = 325;
-    PgDrawRect(&rect, Pg_DRAW_FILL);
-    
-    /* 绘制睫毛（黑色线条） */
-    PgSetStrokeColor(Pg_BLACK);
-    
-    /* 左眼睫毛 */
-    PgDrawILine(150, 150, 160, 140);
-    PgDrawILine(170, 150, 170, 140);
-    PgDrawILine(190, 150, 180, 140);
-    
-    /* 右眼睫毛 */
-    PgDrawILine(210, 150, 220, 140);
-    PgDrawILine(230, 150, 230, 140);
-    PgDrawILine(250, 150, 240, 140);
+    /* 绘制鞋子 */
+    PgSetFillColor(Pg_BLACK);
+    PhRect_t leftShoeRect = {{110, 350}, {160, 370}};
+    PhRect_t rightShoeRect = {{240, 350}, {290, 370}};
+    PgDrawRect(&leftShoeRect, Pg_DRAW_FILL);
+    PgDrawRect(&rightShoeRect, Pg_DRAW_FILL);
     
     /* 刷新绘图 */
     DEBUG_PRINT("绘图完成，刷新显示...\n");
     PgFlush();
-    
-    return Pt_CONTINUE;
 }
 
 /* 微笑按钮回调 */
@@ -454,7 +602,7 @@ int realized_cb(PtWidget_t *widget, void *data, PtCallbackInfo_t *cbinfo) {
 /* 绘图回调函数 - 尝试另一种方法 */
 int draw_cb(PtWidget_t *widget, void *data, PtCallbackInfo_t *cbinfo) {
     DEBUG_PRINT("绘图回调被触发\n");
-    PtCalcCanvas(widget, NULL);
+    /* 不使用PtCalcCanvas，直接调用绘图函数 */
     draw_spongebob(widget, NULL);
     return Pt_CONTINUE;
 }
