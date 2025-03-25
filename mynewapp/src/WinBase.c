@@ -103,7 +103,7 @@ i32_t WinBaseSetup(PtWidget_t *p_st_link_instance, ApInfo_t *p_st_apinfo, PtCall
 
 	//* 4.解析变量信息
 	parse_download_var_csv(&st_trend_var_head, &s_st_trend_info, &s_st_var_info, s_a_ch_file_trend_var);
-
+	 char str[20];
 	//* 5.创建变量hash
 	for (u32_i = 0U; u32_i < s_st_var_info.u32_vars_parse_lines; u32_i++)
 	{
@@ -114,10 +114,13 @@ i32_t WinBaseSetup(PtWidget_t *p_st_link_instance, ApInfo_t *p_st_apinfo, PtCall
 		p_st_var_hash_node->u32_var_offset = p_st_var->u32_offset;
 		p_st_var_hash_node->u32_var_type = p_st_var->u32_data_type;
 		HASH_ADD_STR(s_p_st_var_hash, a_ch_var_name, p_st_var_hash_node);
-
-		//force_var(s_p_st_var_hash, p_st_var->ch_name, "600", "2");	/* 强制变量，值为600，质量位为2（bad） */
+//		printf("current var name is : %s\n", p_st_var->ch_name);
+		sprintf(str, "%u", u32_i);
+		if(u32_i==968 || u32_i==969)
+			;
+		else force_var(s_p_st_var_hash, p_st_var->ch_name, "1", "0");	/* 强制变量，值为600，质量位为2（bad） */
 	}
-
+	printf("hello~");
 	//* 6.批量强制变量
 	const char_t *filename = "/SCID300/Config/test.csv";
 	FILE *file = fopen(filename, "r");
