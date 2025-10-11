@@ -1,0 +1,3 @@
+将c文件复制到qnx appbuilder的工程src中，打开phab，将下面的回调分别绑定到两个按钮用于实现启动和关闭自动点击定时器：
+start_timer@test_event.c
+stop_timer@test_event.c
