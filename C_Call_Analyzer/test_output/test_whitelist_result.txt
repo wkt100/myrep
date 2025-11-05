@@ -3,210 +3,48 @@ C语言工程函数调用关系分析报告
 ================================================================================
 
 分析目录: examples/src
-C语言文件数量: 6
-函数定义数量: 179
-有调用关系的函数数量: 69
+C语言文件数量: 1
+函数定义数量: 32
+有调用关系的函数数量: 22
 
 
 按文件分组的函数定义清单:
 ================================================================================
 
-[Log.c] - 包含 49 个函数
+[Log.c] - 包含 32 个函数
 --------------------------------------------------------------------------------
-  CheckBox_Time_Click            | 行号: 1295
-  CheckLogTimeValid              | 行号: 1584
-  InitTemplate_Log               | 行号: 202
-  InverseValve                   | 行号: 1475
   Log_Init                       | 行号: 47
-  PtDestroyWidget                | 行号: 1293
-  PtGetResource                  | 行号: 1482
-  PtListDeleteAllItems           | 行号: 1337
-  PtSetResource                  | 行号: 1713
-  ReadLogByType                  | 行号: 1236
-  SetCheckBoxState               | 行号: 1467
-  SetLogNewStartTime             | 行号: 1665
-  SwitchLog                      | 行号: 1291
-  UpdateLogInfo                  | 行号: 1329
-  atoi                           | 行号: 1485
+  InitTemplate_Log               | 行号: 202
+  periodRefersh                  | 行号: 216
+  btnLogReal_click               | 行号: 304
   btnLogHistoryClick             | 行号: 373
-  btnLogNexRowClick              | 行号: 993
+  btnLogPrePageClick             | 行号: 426
+  btnLogPageUpClick              | 行号: 548
   btnLogNextPage                 | 行号: 628
   btnLogPageDown                 | 行号: 781
-  btnLogPageUpClick              | 行号: 548
-  btnLogPrePageClick             | 行号: 426
   btnLogPreRowClick              | 行号: 886
-  btnLogReal_click               | 行号: 304
+  btnLogNexRowClick              | 行号: 993
   btnLogSearch                   | 行号: 1097
-  checkLogDay                    | 行号: 1537
-  checkLogLeapYear               | 行号: 1526
-  checkLogTime                   | 行号: 1478
-  clean_timer                    | 行号: 210
+  switchLogByType                | 行号: 1271
+  SwitchLog                      | 行号: 1291
+  CheckBox_Time_Click            | 行号: 1295
   clearInfo                      | 行号: 1318
   existsNull                     | 行号: 1321
-  free                           | 行号: 1410
-  ftime                          | 行号: 1671
-  getLogCurrentScid              | 行号: 1596
-  getLogRequireNum               | 行号: 1575
-  itoa                           | 行号: 1361
-  localtime                      | 行号: 1673
-  logBtnFloat                    | 行号: 1438
-  logBtnGUI                      | 行号: 1425
-  logBtnSink                     | 行号: 1458
-  memcpy                         | 行号: 1400
-  mktime                         | 行号: 1638
-  periodRefersh                  | 行号: 216
-  photon_init_sys_info           | 行号: 213
-  photon_show_msg                | 行号: 1655
-  scid_time_to_std_sec           | 行号: 1600
+  UpdateLogInfo                  | 行号: 1329
   setlogBtnDisable               | 行号: 1411
   setlogBtnEnable                | 行号: 1418
-  strcpy                         | 行号: 946
-  switchLogByType                | 行号: 1271
-
-[Log.h] - 包含 17 个函数
---------------------------------------------------------------------------------
-  CheckLogTimeValid              | 行号: 43
-  InitTemplate_Log               | 行号: 9
-  InverseValve                   | 行号: 24
-  SetCheckBoxState               | 行号: 20
-  UpdateLogInfo                  | 行号: 11
-  checkLogDay                    | 行号: 39
-  checkLogLeapYear               | 行号: 41
-  checkLogTime                   | 行号: 36
-  clearInfo                      | 行号: 9
-  existsNull                     | 行号: 9
-  getLogCurrentScid              | 行号: 29
-  getLogRequireNum               | 行号: 27
-  logBtnFloat                    | 行号: 15
-  logBtnGUI                      | 行号: 13
-  logBtnSink                     | 行号: 19
-  setlogBtnDisable               | 行号: 11
-  setlogBtnEnable                | 行号: 11
-
-[container.c] - 包含 5 个函数
---------------------------------------------------------------------------------
-  PtDestroyWidget                | 行号: 37
-  PtGetResource                  | 行号: 85
-  PtWidgetIsClass                | 行号: 79
-  container_click                | 行号: 25
-  strncmp                        | 行号: 66
-
-[container.h] - 包含 0 个函数
---------------------------------------------------------------------------------
-
-[hzPanel1a.c] - 包含 77 个函数
---------------------------------------------------------------------------------
-  ApGetInstance                  | 行号: 3801
-  ApGetWidgetPtr                 | 行号: 4895
-  PhGetData                      | 行号: 2839
-  PtGetResource                  | 行号: 2857
-  PtSetResource                  | 行号: 4028
-  PtWidgetExtent                 | 行号: 2848
-  Set_hzPanel1a_NCWidgetIndex    | 行号: 4762
-  atof                           | 行号: 3512
-  atoi                           | 行号: 3501
-  btnActivate_hzP1a_click        | 行号: 2880
-  btnAutoManu_hzP1a_click        | 行号: 2966
-  btnDecrease_hzP1a_arm          | 行号: 3119
-  btnDecrease_hzP1a_disarm       | 行号: 3140
-  btnExecute_hzP1a_arm           | 行号: 3319
-  btnExecute_hzP1a_disarm        | 行号: 3336
-  btnExit_hzP1a_click            | 行号: 3522
-  btnFastSlow_hzP1a_arm          | 行号: 3231
-  btnFastSlow_hzP1a_disarm       | 行号: 3249
-  btnIncrease_hzP1a_arm          | 行号: 3009
-  btnIncrease_hzP1a_disarm       | 行号: 3024
-  change_widgetState_hzP1a       | 行号: 3828
-  check_app_mode                 | 行号: 3804
-  end_dragging_hzP1a_win         | 行号: 772
-  fflush                         | 行号: 4968
-  fprintf                        | 行号: 4962
-  free                           | 行号: 2642
-  ftime                          | 行号: 3385
-  get_PNames_hzPanel1a_configuration | 行号: 4035
-  hzPanel1a_NC_screen_setUp      | 行号: 3960
-  hzPanel1a_init                 | 行号: 2756
-  hzPanel1a_periodRefersh        | 行号: 3796
-  hzPanel1a_setUp                | 行号: 3574
-  increase_timer_calltimes       | 行号: 3858
-  itoa                           | 行号: 3406
-  localtime                      | 行号: 4961
-  memcpy                         | 行号: 3388
-  panelBtnFloat                  | 行号: 691
-  panelBtnGUI                    | 行号: 692
-  photon_close_panel             | 行号: 3560
-  photon_close_panel_by_widget_pointer | 行号: 3549
-  photon_get_ana_panel_info      | 行号: 2009
-  photon_get_instruction_id      | 行号: 790
-  photon_init_oper_panel         | 行号: 4125
-  photon_open_panel_by_widget_pointer | 行号: 4147
-  photon_reset_panel_vars        | 行号: 4101
-  photon_send_display_log        | 行号: 3490
-  photon_send_oper_log           | 行号: 3518
-  photon_show_msg                | 行号: 4150
-  replace_special_character_hzp1a | 行号: 4926
-  set_breakers_widgets_close     | 行号: 4659
-  set_btnState_by_mode_hzP1a     | 行号: 3863
-  set_dampers_widgets_close      | 行号: 4619
-  set_dev_widget_direction       | 行号: 4090
-  set_equip_status_hzPanel1a     | 行号: 2326
-  set_hzPanel1a_NC_screen_equipmentWidget | 行号: 4156
-  set_hzPanel1a_Q_State          | 行号: 2169
-  set_hzPanel1a_block_state      | 行号: 3852
-  set_hzPanel1a_equipmentName    | 行号: 4116
-  set_hzPanel1a_equipmentWidget  | 行号: 3640
-  set_hzPanel1a_quipment_hide    | 行号: 4119
-  set_hzPanel1a_ts_rs_state      | 行号: 2028
-  set_hzPanels_equipment_widgets_close | 行号: 4200
-  set_pumps_widgets_close        | 行号: 4238
-  set_specal_widgets_close       | 行号: 4722
-  set_valves_widgets_close       | 行号: 4325
-  set_widget_color               | 行号: 4086
-  set_widget_show_hide_hzPanel1a | 行号: 4120
-  start_dragging_hzP1a_win       | 行号: 2814
-  str_right_shift_one_hzp1a      | 行号: 4944
-  strcpy                         | 行号: 4106
-  strtol                         | 行号: 2008
-  time                           | 行号: 4960
-  trace_hzP1a_orderBtn_is_auto_up | 行号: 675
-  va_end                         | 行号: 4968
-  va_start                       | 行号: 4959
-  vfprintf                       | 行号: 4968
-  write_log                      | 行号: 4956
-
-[hzPanel1a.h] - 包含 31 个函数
---------------------------------------------------------------------------------
-  Set_hzPanel1a_NCWidgetIndex    | 行号: 136
-  change_widgetState_hzP1a       | 行号: 114
-  check_app_mode                 | 行号: 88
-  get_PNames_hzPanel1a_configuration | 行号: 129
-  panelBtnFloat                  | 行号: 95
-  panelBtnFloatNoClr             | 行号: 106
-  panelBtnGUI                    | 行号: 91
-  panelBtnGUINoClr               | 行号: 102
-  panelBtnSink                   | 行号: 99
-  panelBtnSinkNoClr              | 行号: 110
-  replace_special_character_hzp1a | 行号: 147
-  set_all_disable                | 行号: 87
-  set_breakers_widgets_close     | 行号: 141
-  set_btnState_by_mode_hzP1a     | 行号: 135
-  set_dampers_widgets_close      | 行号: 139
-  set_equip_status_hzPanel1a     | 行号: 130
-  set_hzPanel1a_NC_screen_equipmentWidget | 行号: 134
-  set_hzPanel1a_Q_State          | 行号: 131
-  set_hzPanel1a_block_state      | 行号: 124
-  set_hzPanel1a_equipmentName    | 行号: 134
-  set_hzPanel1a_equipmentWidget  | 行号: 132
-  set_hzPanel1a_quipment_hide    | 行号: 135
-  set_hzPanel1a_ts_rs_state      | 行号: 130
-  set_hzPanels_equipment_widgets_close | 行号: 145
-  set_operate_button             | 行号: 85
-  set_pumps_widgets_close        | 行号: 137
-  set_specal_widgets_close       | 行号: 142
-  set_valves_widgets_close       | 行号: 138
-  set_widget_show_hide_hzPanel1a | 行号: 126
-  str_right_shift_one_hzp1a      | 行号: 149
-  trace_hzP1a_orderBtn_is_auto_up | 行号: 120
+  logBtnGUI                      | 行号: 1425
+  logBtnFloat                    | 行号: 1438
+  logBtnSink                     | 行号: 1458
+  SetCheckBoxState               | 行号: 1467
+  InverseValve                   | 行号: 1475
+  checkLogTime                   | 行号: 1478
+  checkLogLeapYear               | 行号: 1526
+  checkLogDay                    | 行号: 1537
+  getLogCurrentScid              | 行号: 1566
+  getLogRequireNum               | 行号: 1575
+  CheckLogTimeValid              | 行号: 1584
+  SetLogNewStartTime             | 行号: 1665
 
 
 按文件分组的函数调用关系:
@@ -214,502 +52,150 @@ C语言文件数量: 6
 
 [Log.c]
 --------------------------------------------------------------------------------
-  BtnPeriodRefresh 调用了:
-    -> logBtnFloat [Log.h]
-
-  CheckBox_Time_Click 调用了:
-    -> InverseValve [Log.h]
-    -> SetCheckBoxState [Log.h]
-
-  CheckLogTimeValid 调用了:
-    -> getLogCurrentScid [Log.h]
-    -> mktime [Log.c]
-    -> photon_show_msg [Log.c]
-    -> scid_time_to_std_sec [Log.c]
+  Log_Init 调用了:
+    -> InitTemplate_Log [Log.c]
+    -> ReadLogByType [(未知)]
+    -> SetLogNewStartTime [Log.c]
+    -> UpdateLogInfo [Log.c]
+    -> getLogCurrentScid [Log.c]
+    -> logBtnFloat [Log.c]
+    -> logBtnSink [Log.c]
+    -> photon_show_msg [(未知)]
+    -> setlogBtnDisable [Log.c]
 
   InitTemplate_Log 调用了:
-    -> PtDestroyWidget [Log.c]
-    -> clean_timer [Log.c]
-    -> photon_init_sys_info [Log.c]
+    -> clean_timer [(未知)]
+    -> photon_init_sys_info [(未知)]
 
-  Log_Init 调用了:
-    -> InitTemplate_Log [Log.h]
-    -> PtGetResource [Log.c]
-    -> PtSetResource [Log.c]
-    -> ReadLogByType [Log.c]
-    -> SetLogNewStartTime [Log.c]
-    -> UpdateLogInfo [Log.h]
-    -> getLogCurrentScid [Log.h]
-    -> logBtnFloat [Log.h]
-    -> logBtnSink [Log.h]
-    -> memcpy [Log.c]
-    -> photon_show_msg [Log.c]
-    -> setlogBtnDisable [Log.h]
-    -> strcpy [Log.c]
-    -> strstr [(未知)]
+  periodRefersh 调用了:
+    -> ReadLogByType [(未知)]
+    -> UpdateLogInfo [Log.c]
+    -> getLogCurrentScid [Log.c]
+    -> getLogRequireNum [Log.c]
+    -> photon_show_msg [(未知)]
 
-  SetCheckBoxState 调用了:
-    -> PtSetResource [Log.c]
+  btnLogReal_click 调用了:
+    -> ReadLogByType [(未知)]
+    -> SetCheckBoxState [Log.c]
+    -> UpdateLogInfo [Log.c]
+    -> getLogCurrentScid [Log.c]
+    -> logBtnFloat [Log.c]
+    -> logBtnSink [Log.c]
+    -> photon_show_msg [(未知)]
+    -> setlogBtnDisable [Log.c]
 
-  SetLogNewStartTime 调用了:
-    -> PtSetResource [Log.c]
-    -> ftime [Log.c]
-    -> localtime [Log.c]
+  btnLogHistoryClick 调用了:
+    -> ReadLogByType [(未知)]
+    -> SetCheckBoxState [Log.c]
+    -> UpdateLogInfo [Log.c]
+    -> getLogCurrentScid [Log.c]
+    -> logBtnFloat [Log.c]
+    -> logBtnSink [Log.c]
+    -> photon_show_msg [(未知)]
+    -> setlogBtnEnable [Log.c]
 
-  SwitchLog 调用了:
-    -> PtDestroyWidget [Log.c]
+  btnLogPrePageClick 调用了:
+    -> ReadLogByType [(未知)]
+    -> UpdateLogInfo [Log.c]
+    -> photon_show_msg [(未知)]
+
+  btnLogPageUpClick 调用了:
+    -> ReadLogByType [(未知)]
+    -> UpdateLogInfo [Log.c]
+    -> getLogCurrentScid [Log.c]
+    -> getLogRequireNum [Log.c]
+    -> photon_show_msg [(未知)]
+
+  btnLogNextPage 调用了:
+    -> ReadLogByType [(未知)]
+    -> UpdateLogInfo [Log.c]
+    -> getLogCurrentScid [Log.c]
+    -> photon_show_msg [(未知)]
+
+  btnLogPageDown 调用了:
+    -> ReadLogByType [(未知)]
+    -> UpdateLogInfo [Log.c]
+    -> getLogCurrentScid [Log.c]
+    -> photon_show_msg [(未知)]
+
+  btnLogPreRowClick 调用了:
+    -> ReadLogByType [(未知)]
+    -> UpdateLogInfo [Log.c]
+    -> photon_show_msg [(未知)]
+
+  btnLogNexRowClick 调用了:
+    -> ReadLogByType [(未知)]
+    -> UpdateLogInfo [Log.c]
+    -> getLogCurrentScid [Log.c]
+    -> photon_show_msg [(未知)]
+
+  btnLogSearch 调用了:
+    -> CheckLogTimeValid [Log.c]
+    -> ReadLogByType [(未知)]
+    -> UpdateLogInfo [Log.c]
+    -> checkLogTime [Log.c]
+    -> getLogRequireNum [Log.c]
+    -> photon_show_msg [(未知)]
+
+  switchLogByType 调用了: 无
+
+  SwitchLog 调用了: 无
+
+  CheckBox_Time_Click 调用了:
+    -> InverseValve [Log.c]
+    -> SetCheckBoxState [Log.c]
+
+  clearInfo 调用了:
+    -> PtListDeleteAllItems [(未知)]
+
+  existsNull 调用了: 无
 
   UpdateLogInfo 调用了:
     -> PtListAddItems [(未知)]
-    -> PtListDeleteAllItems [Log.c]
-    -> PtSetResource [Log.c]
-    -> existsNull [Log.h]
-    -> free [Log.c]
-    -> itoa [Log.c]
-    -> memcpy [Log.c]
-    -> photon_show_msg [Log.c]
-
-  btnLogHistoryClick 调用了:
-    -> ReadLogByType [Log.c]
-    -> SetCheckBoxState [Log.h]
-    -> UpdateLogInfo [Log.h]
-    -> getLogCurrentScid [Log.h]
-    -> logBtnFloat [Log.h]
-    -> logBtnSink [Log.h]
-    -> memcpy [Log.c]
-    -> photon_show_msg [Log.c]
-    -> setlogBtnEnable [Log.h]
-    -> strcpy [Log.c]
-
-  btnLogNexRowClick 调用了:
-    -> ReadLogByType [Log.c]
-    -> UpdateLogInfo [Log.h]
-    -> getLogCurrentScid [Log.h]
-    -> memcpy [Log.c]
-    -> photon_show_msg [Log.c]
-
-  btnLogNextPage 调用了:
-    -> ReadLogByType [Log.c]
-    -> UpdateLogInfo [Log.h]
-    -> getLogCurrentScid [Log.h]
-    -> memcpy [Log.c]
-    -> photon_show_msg [Log.c]
-
-  btnLogPageDown 调用了:
-    -> ReadLogByType [Log.c]
-    -> UpdateLogInfo [Log.h]
-    -> getLogCurrentScid [Log.h]
-    -> memcpy [Log.c]
-    -> photon_show_msg [Log.c]
-    -> strcpy [Log.c]
-
-  btnLogPageUpClick 调用了:
-    -> ReadLogByType [Log.c]
-    -> UpdateLogInfo [Log.h]
-    -> getLogCurrentScid [Log.h]
-    -> getLogRequireNum [Log.h]
-    -> memcpy [Log.c]
-    -> photon_show_msg [Log.c]
-    -> strcpy [Log.c]
-
-  btnLogPrePageClick 调用了:
-    -> ReadLogByType [Log.c]
-    -> UpdateLogInfo [Log.h]
-    -> photon_show_msg [Log.c]
-    -> strcpy [Log.c]
-    -> strncmp [container.c]
-
-  btnLogPreRowClick 调用了:
-    -> ReadLogByType [Log.c]
-    -> UpdateLogInfo [Log.h]
-    -> photon_show_msg [Log.c]
-    -> strcpy [Log.c]
-    -> strncmp [container.c]
-
-  btnLogReal_click 调用了:
-    -> ReadLogByType [Log.c]
-    -> SetCheckBoxState [Log.h]
-    -> UpdateLogInfo [Log.h]
-    -> getLogCurrentScid [Log.h]
-    -> logBtnFloat [Log.h]
-    -> logBtnSink [Log.h]
-    -> memcpy [Log.c]
-    -> photon_show_msg [Log.c]
-    -> setlogBtnDisable [Log.h]
-    -> strcpy [Log.c]
-
-  btnLogSearch 调用了:
-    -> CheckLogTimeValid [Log.h]
-    -> ReadLogByType [Log.c]
-    -> UpdateLogInfo [Log.h]
-    -> checkLogTime [Log.h]
-    -> getLogRequireNum [Log.h]
-    -> photon_show_msg [Log.c]
-
-  checkLogDay 调用了:
-    -> checkLogLeapYear [Log.h]
-
-  checkLogTime 调用了:
-    -> PtGetResource [Log.c]
-    -> atoi [Log.c]
-    -> checkLogDay [Log.h]
-
-  clearInfo 调用了:
-    -> PtListDeleteAllItems [Log.c]
-
-  getLogCurrentScid 调用了:
-    -> ftime [Log.c]
-    -> std_sec_to_scid_time [(未知)]
-
-  logBtnFloat 调用了:
-    -> PgRGB [(未知)]
-    -> PtSetResource [Log.c]
-
-  logBtnGUI 调用了:
-    -> PgRGB [(未知)]
-    -> PtSetResource [Log.c]
-
-  logBtnSink 调用了:
-    -> PgRGB [(未知)]
-    -> PtSetResource [Log.c]
-
-  logbutton_state 调用了:
-    -> PgRGB [(未知)]
-    -> PtSetArg [(未知)]
-
-  periodRefersh 调用了:
-    -> ReadLogByType [Log.c]
-    -> UpdateLogInfo [Log.h]
-    -> getLogCurrentScid [Log.h]
-    -> getLogRequireNum [Log.h]
-    -> memcpy [Log.c]
-    -> photon_show_msg [Log.c]
-    -> strcpy [Log.c]
+    -> PtListDeleteAllItems [(未知)]
+    -> existsNull [Log.c]
+    -> free [(未知)]
+    -> itoa [(未知)]
+    -> photon_show_msg [(未知)]
 
   setlogBtnDisable 调用了:
-    -> logBtnGUI [Log.h]
+    -> logBtnGUI [Log.c]
 
   setlogBtnEnable 调用了:
-    -> logBtnFloat [Log.h]
+    -> logBtnFloat [Log.c]
 
+  logBtnGUI 调用了: 无
 
-[container.c]
---------------------------------------------------------------------------------
-  container_click 调用了:
-    -> PtDestroyWidget [Log.c]
-    -> PtGetResource [Log.c]
-    -> PtWidgetBrotherInFront [(未知)]
-    -> PtWidgetChildBack [(未知)]
-    -> PtWidgetIsClass [container.c]
-    -> strncmp [container.c]
+  logBtnFloat 调用了: 无
 
+  logBtnSink 调用了: 无
 
-[hzPanel1a.c]
---------------------------------------------------------------------------------
-  Set_hzPanel1a_NCWidgetIndex 调用了:
-    -> ApGetWidgetPtr [hzPanel1a.c]
+  SetCheckBoxState 调用了: 无
 
-  btnActivate_hzP1a_click 调用了:
-    -> ApGetInstance [hzPanel1a.c]
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> PgRGB [(未知)]
-    -> PtSetResource [Log.c]
-    -> panelBtnFloat [hzPanel1a.h]
-    -> panelBtnGUI [hzPanel1a.h]
-    -> panelBtnGUINoClr [hzPanel1a.h]
+  InverseValve 调用了: 无
 
-  btnAutoManu_hzP1a_click 调用了:
-    -> ApGetInstance [hzPanel1a.c]
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> ftime [Log.c]
-    -> panelBtnFloat [hzPanel1a.h]
-    -> panelBtnSink [hzPanel1a.h]
+  checkLogTime 调用了:
+    -> atoi [(未知)]
+    -> checkLogDay [Log.c]
 
-  btnDecrease_hzP1a_arm 调用了:
-    -> ApGetInstance [hzPanel1a.c]
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> PtSetResource [Log.c]
-    -> ftime [Log.c]
+  checkLogLeapYear 调用了: 无
 
-  btnDecrease_hzP1a_disarm 调用了:
-    -> ApGetInstance [hzPanel1a.c]
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> PtGetResource [Log.c]
-    -> PtSetResource [Log.c]
-    -> atof [hzPanel1a.c]
-    -> atoi [Log.c]
-    -> ftime [Log.c]
-    -> memcpy [Log.c]
-    -> photon_send_oper_log [hzPanel1a.c]
-    -> photon_show_msg [Log.c]
+  checkLogDay 调用了:
+    -> checkLogLeapYear [Log.c]
 
-  btnExecute_hzP1a_arm 调用了:
-    -> ApGetInstance [hzPanel1a.c]
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> PgRGB [(未知)]
-    -> PtSetResource [Log.c]
-
-  btnExecute_hzP1a_disarm 调用了:
-    -> ApGetInstance [hzPanel1a.c]
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> PtGetResource [Log.c]
-    -> atof [hzPanel1a.c]
-    -> atoi [Log.c]
-    -> ftime [Log.c]
-    -> itoa [Log.c]
-    -> memcpy [Log.c]
-    -> panelBtnFloat [hzPanel1a.h]
-    -> panelBtnGUI [hzPanel1a.h]
-    -> photon_send_display_log [hzPanel1a.c]
-    -> photon_send_oper_log [hzPanel1a.c]
-    -> photon_show_msg [Log.c]
+  getLogCurrentScid 调用了:
+    -> ftime [(未知)]
     -> std_sec_to_scid_time [(未知)]
-    -> strcpy [Log.c]
 
-  btnExit_hzP1a_click 调用了:
-    -> ApGetInstance [hzPanel1a.c]
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> PtSetResource [Log.c]
-    -> panelBtnSink [hzPanel1a.h]
-    -> photon_close_panel [hzPanel1a.c]
-    -> photon_close_panel_by_widget_pointer [hzPanel1a.c]
-    -> set_hzPanels_equipment_widgets_close [hzPanel1a.h]
+  getLogRequireNum 调用了: 无
 
-  btnFastSlow_hzP1a_arm 调用了:
-    -> ApGetInstance [hzPanel1a.c]
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> PgRGB [(未知)]
-    -> PtSetResource [Log.c]
+  CheckLogTimeValid 调用了:
+    -> getLogCurrentScid [Log.c]
+    -> mktime [(未知)]
+    -> photon_show_msg [(未知)]
+    -> scid_time_to_std_sec [(未知)]
 
-  btnFastSlow_hzP1a_disarm 调用了:
-    -> ApGetInstance [hzPanel1a.c]
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> PtGetResource [Log.c]
-    -> atof [hzPanel1a.c]
-    -> atoi [Log.c]
-    -> memcpy [Log.c]
-    -> panelBtnFloat [hzPanel1a.h]
-    -> photon_send_oper_log [hzPanel1a.c]
-    -> photon_show_msg [Log.c]
-
-  btnIncrease_hzP1a_arm 调用了:
-    -> ApGetInstance [hzPanel1a.c]
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> PtSetResource [Log.c]
-    -> ftime [Log.c]
-
-  btnIncrease_hzP1a_disarm 调用了:
-    -> ApGetInstance [hzPanel1a.c]
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> PtGetResource [Log.c]
-    -> PtSetResource [Log.c]
-    -> atof [hzPanel1a.c]
-    -> atoi [Log.c]
-    -> ftime [Log.c]
-    -> memcpy [Log.c]
-    -> photon_send_oper_log [hzPanel1a.c]
-    -> photon_show_msg [Log.c]
-
-  change_widgetState_hzP1a 调用了:
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> PgRGB [(未知)]
-    -> PtGetResource [Log.c]
-    -> PtSetResource [Log.c]
-    -> PtWidgetIsClass [container.c]
-    -> memcpy [Log.c]
-    -> panelBtnFloat [hzPanel1a.h]
-    -> panelBtnGUI [hzPanel1a.h]
-    -> set_equip_status_hzPanel1a [hzPanel1a.h]
-    -> set_hzPanel1a_Q_State [hzPanel1a.h]
-    -> set_hzPanel1a_ts_rs_state [hzPanel1a.h]
-
-  check_app_mode 调用了:
-    -> atoi [Log.c]
-
-  end_dragging_hzP1a_win 调用了:
-    -> PhGetData [hzPanel1a.c]
-    -> PtSetResource [Log.c]
-
-  get_PNames_hzPanel1a_configuration 调用了:
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> PtSetResource [Log.c]
-    -> memcpy [Log.c]
-    -> photon_get_ana_panel_info [hzPanel1a.c]
-    -> photon_get_instruction_id [hzPanel1a.c]
-
-  hzPanel1a_NC_screen_setUp 调用了:
-    -> PtSetResource [Log.c]
-    -> Set_hzPanel1a_NCWidgetIndex [hzPanel1a.h]
-    -> get_PNames_hzPanel1a_configuration [hzPanel1a.h]
-    -> photon_init_oper_panel [hzPanel1a.c]
-    -> photon_open_panel_by_widget_pointer [hzPanel1a.c]
-    -> photon_reset_panel_vars [hzPanel1a.c]
-    -> photon_show_msg [Log.c]
-    -> set_dev_widget_direction [hzPanel1a.c]
-    -> set_hzPanel1a_NC_screen_equipmentWidget [hzPanel1a.h]
-    -> set_hzPanel1a_equipmentName [hzPanel1a.h]
-    -> set_hzPanel1a_quipment_hide [hzPanel1a.h]
-    -> set_widget_color [hzPanel1a.c]
-    -> set_widget_show_hide_hzPanel1a [hzPanel1a.h]
-    -> strcpy [Log.c]
-
-  hzPanel1a_init 调用了:
-    -> ApGetInstance [hzPanel1a.c]
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> PgRGB [(未知)]
-    -> PtSetResource [Log.c]
-    -> memcpy [Log.c]
-    -> panelBtnGUI [hzPanel1a.h]
-
-  hzPanel1a_periodRefersh 调用了:
-    -> ApGetInstance [hzPanel1a.c]
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> change_widgetState_hzP1a [hzPanel1a.h]
-    -> check_app_mode [hzPanel1a.h]
-    -> increase_timer_calltimes [hzPanel1a.c]
-    -> memcpy [Log.c]
-    -> photon_show_msg [Log.c]
-    -> set_btnState_by_mode_hzP1a [hzPanel1a.h]
-    -> set_hzPanel1a_block_state [hzPanel1a.h]
-    -> trace_hzP1a_orderBtn_is_auto_up [hzPanel1a.h]
-
-  hzPanel1a_setUp 调用了:
-    -> ApGetInstance [hzPanel1a.c]
-    -> PtSetResource [Log.c]
-    -> get_PNames_hzPanel1a_configuration [hzPanel1a.h]
-    -> photon_init_oper_panel [hzPanel1a.c]
-    -> photon_open_panel_by_widget_pointer [hzPanel1a.c]
-    -> photon_reset_panel_vars [hzPanel1a.c]
-    -> photon_show_msg [Log.c]
-    -> set_dev_widget_direction [hzPanel1a.c]
-    -> set_hzPanel1a_equipmentName [hzPanel1a.h]
-    -> set_hzPanel1a_equipmentWidget [hzPanel1a.h]
-    -> set_hzPanel1a_quipment_hide [hzPanel1a.h]
-    -> set_widget_color [hzPanel1a.c]
-    -> set_widget_show_hide_hzPanel1a [hzPanel1a.h]
-    -> strcpy [Log.c]
-
-  replace_special_character_hzp1a 调用了:
-    -> memcpy [Log.c]
-    -> str_right_shift_one_hzp1a [hzPanel1a.h]
-    -> strstr [(未知)]
-
-  set_breakers_widgets_close 调用了:
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> ApName [(未知)]
-    -> PtSetResource [Log.c]
-    -> PtWidgetIsClass [container.c]
-
-  set_btnState_by_mode_hzP1a 调用了:
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> PgRGB [(未知)]
-    -> PtGetResource [Log.c]
-    -> PtSetResource [Log.c]
-    -> panelBtnFloat [hzPanel1a.h]
-    -> panelBtnGUI [hzPanel1a.h]
-
-  set_dampers_widgets_close 调用了:
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> ApName [(未知)]
-    -> PtSetResource [Log.c]
-    -> PtWidgetIsClass [container.c]
-
-  set_equip_status_hzPanel1a 调用了:
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> PtSetResource [Log.c]
-    -> PtWidgetIsClass [container.c]
-
-  set_hzPanel1a_Q_State 调用了:
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> PtSetResource [Log.c]
-    -> PtWidgetIsClass [container.c]
-
-  set_hzPanel1a_block_state 调用了:
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> PgRGB [(未知)]
-    -> PtSetResource [Log.c]
-    -> panelBtnGUI [hzPanel1a.h]
-    -> panelBtnGUINoClr [hzPanel1a.h]
-
-  set_hzPanel1a_equipmentName 调用了:
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> PtSetResource [Log.c]
-    -> free [Log.c]
-    -> replace_special_character_hzp1a [hzPanel1a.h]
-    -> strcpy [Log.c]
-
-  set_hzPanel1a_equipmentWidget 调用了:
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> ApName [(未知)]
-    -> PtGetResource [Log.c]
-    -> PtSetResource [Log.c]
-    -> PtWidgetIsClass [container.c]
-    -> itoa [Log.c]
-    -> photon_get_ana_panel_info [hzPanel1a.c]
-    -> photon_show_msg [Log.c]
-    -> strtol [hzPanel1a.c]
-
-  set_hzPanel1a_quipment_hide 调用了:
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> PtSetResource [Log.c]
-
-  set_hzPanel1a_ts_rs_state 调用了:
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> PtSetResource [Log.c]
-    -> PtWidgetIsClass [container.c]
-
-  set_hzPanels_equipment_widgets_close 调用了:
-    -> set_breakers_widgets_close [hzPanel1a.h]
-    -> set_dampers_widgets_close [hzPanel1a.h]
-    -> set_pumps_widgets_close [hzPanel1a.h]
-    -> set_specal_widgets_close [hzPanel1a.h]
-    -> set_valves_widgets_close [hzPanel1a.h]
-
-  set_pumps_widgets_close 调用了:
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> ApName [(未知)]
-    -> PtSetResource [Log.c]
-    -> PtWidgetIsClass [container.c]
-
-  set_specal_widgets_close 调用了:
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> ApName [(未知)]
-    -> PtSetResource [Log.c]
-    -> PtWidgetIsClass [container.c]
-
-  set_valves_widgets_close 调用了:
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> ApName [(未知)]
-    -> PtSetResource [Log.c]
-    -> PtWidgetIsClass [container.c]
-
-  set_widget_show_hide_hzPanel1a 调用了:
-    -> ApGetWidgetPtr [hzPanel1a.c]
-    -> PtSetResource [Log.c]
-    -> PtWidgetIsClass [container.c]
-
-  start_dragging_hzP1a_win 调用了:
-    -> ApGetInstance [hzPanel1a.c]
-    -> PhGetData [hzPanel1a.c]
-    -> PhInitDrag [(未知)]
-    -> PhInputGroup [(未知)]
-    -> PtGetResource [Log.c]
-    -> PtWidgetExtent [hzPanel1a.c]
-    -> PtWidgetRid [(未知)]
-
-  trace_hzP1a_orderBtn_is_auto_up 调用了:
-    -> PtGetResource [Log.c]
-    -> ftime [Log.c]
-    -> panelBtnFloat [hzPanel1a.h]
-    -> panelBtnGUI [hzPanel1a.h]
-    -> photon_show_msg [Log.c]
-
-  write_log 调用了:
-    -> fflush [hzPanel1a.c]
-    -> fprintf [hzPanel1a.c]
-    -> localtime [Log.c]
-    -> time [hzPanel1a.c]
-    -> va_end [hzPanel1a.c]
-    -> va_start [hzPanel1a.c]
-    -> vfprintf [hzPanel1a.c]
+  SetLogNewStartTime 调用了:
+    -> ftime [(未知)]
+    -> localtime [(未知)]
 

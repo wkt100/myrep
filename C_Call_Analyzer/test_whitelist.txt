@@ -9,3 +9,12 @@ strcat
 strlen
 strncat
 strncpy
+strcpy
+memcpy
+strncmp
+memcpy
+PtSetResource
+PtGetResource
+PgRGB
+strstr
+PtDestroyWidget

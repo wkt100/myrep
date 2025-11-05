@@ -67,9 +67,11 @@ class CCallAnalyzer:
         return self.c_files
     
     def extract_function_defs(self):
-        """提取所有函数定义，保存函数所属的文件名"""
-        # 匹配函数定义的正则表达式（更全面的版本，支持跨多行函数声明和定义）
-        func_def_pattern = r'\b(?:\w+(?:\s*\*)?\s+)*(\w+)\s*\([^)]*\)\s*(?:const\s*)?(?:\{|;)'  
+        """提取所有函数定义，保存函数所属的文件名，忽略被注释的函数"""
+        # 改进的函数定义匹配正则表达式，更准确地识别函数定义而非函数调用
+        # 匹配：[返回类型] [函数名] ([参数列表]) [const] { 或 ;
+        # 支持自定义类型如i32_t等
+        func_def_pattern = r'\b(?:(?:static|extern|inline|\w+(?:_t)?|struct\s+\w+|union\s+\w+|enum\s+\w+)(?:\s*\*)?\s+)+(\w+)\s*\([^)]*\)\s*(?:const\s*)?\{'  
         
         print("正在提取函数定义...")
         for file_path in self.c_files:
@@ -80,23 +82,37 @@ class CCallAnalyzer:
             try:
                 with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
                     content = f.read()
-                    # 移除注释，确保不会被注释内容干扰
-                    content_no_comments = self.remove_comments(content)
-                    # 获取原始文件的行信息，用于确定函数定义行号
                     original_lines = content.split('\n')
                     
-                    # 在移除注释后的内容中查找所有函数定义
+                    # 创建一个标记数组，表示哪些位置不在注释内
+                    not_in_comment = [True] * len(content)
+                    
+                    # 标记块注释内的位置
+                    block_comment_pattern = r'/\*.*?\*/'
+                    for match in re.finditer(block_comment_pattern, content, re.DOTALL):
+                        start, end = match.span()
+                        for i in range(start, end):
+                            if i < len(not_in_comment):
+                                not_in_comment[i] = False
+                    
+                    # 标记行注释内的位置
+                    line_comment_pattern = r'//.*$'
+                    for match in re.finditer(line_comment_pattern, content, re.MULTILINE):
+                        start, end = match.span()
+                        for i in range(start, end):
+                            if i < len(not_in_comment):
+                                not_in_comment[i] = False
+                    
+                    # 移除注释，用于查找函数定义
+                    content_no_comments = self.remove_comments(content)
                     matches = list(re.finditer(func_def_pattern, content_no_comments))
                     
                     for match in matches:
                         func_name = match.group(1)
                         # 过滤掉C语言关键字、控制流语句和白名单中的函数
                         if func_name not in C_KEYWORDS and func_name not in self.whitelist:
-                            # 计算匹配在原始文件中的行号
-                            # 通过计算匹配位置之前的换行符数量
+                            # 找到匹配在原始内容中的大致位置
                             pos_in_no_comments = match.start()
-                            # 由于我们移除了注释，需要找到在原始内容中的大致位置
-                            # 这是一个启发式方法，可能需要根据实际情况调整
                             approximate_pos = 0
                             current_pos = 0
                             
@@ -109,12 +125,21 @@ class CCallAnalyzer:
                                     break
                                 current_pos += len(line_no_comments) + 1  # +1 for the newline
                             
-                            # 保存函数定义信息
-                            self.function_defs[file_path][func_name] = {
-                                'line': approximate_pos if approximate_pos > 0 else 1
-                            }
-                            # 保存函数名到文件路径的映射
-                            self.func_to_file[func_name] = file_path
+                            # 检查函数定义是否在注释外
+                            # 尝试找到原始内容中函数名的位置
+                            func_pattern_in_original = r'\b' + re.escape(func_name) + r'\s*\([^)]*\)'
+                            func_match = re.search(func_pattern_in_original, content)
+                            
+                            if func_match:
+                                # 检查函数名的位置是否在注释外
+                                func_pos = func_match.start()
+                                if func_pos < len(not_in_comment) and not_in_comment[func_pos]:
+                                    # 保存函数定义信息
+                                    self.function_defs[file_path][func_name] = {
+                                        'line': approximate_pos if approximate_pos > 0 else 1
+                                    }
+                                    # 保存函数名到文件路径的映射
+                                    self.func_to_file[func_name] = file_path
             except Exception as e:
                 print(f"读取文件 {file_path} 时出错: {e}")
         
@@ -131,7 +156,7 @@ class CCallAnalyzer:
         return code
     
     def extract_function_calls(self):
-        """提取函数调用关系"""
+        """提取函数调用关系，忽略注释中的函数调用"""
         print("正在分析函数调用关系...")
         
         # 函数调用匹配模式
@@ -143,48 +168,68 @@ class CCallAnalyzer:
             try:
                 with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
                     content = f.read()
-                    # 移除注释
-                    content_no_comments = self.remove_comments(content)
                     
-                    # 查找所有函数定义（在原始内容中，以便后续能准确定位函数体）
+                    # 创建一个标记数组，表示哪些位置不在注释内
+                    not_in_comment = [True] * len(content)
+                    
+                    # 标记块注释内的位置
+                    block_comment_pattern = r'/\*.*?\*/'
+                    for match in re.finditer(block_comment_pattern, content, re.DOTALL):
+                        start, end = match.span()
+                        for i in range(start, end):
+                            if i < len(not_in_comment):
+                                not_in_comment[i] = False
+                    
+                    # 标记行注释内的位置
+                    line_comment_pattern = r'//.*$'
+                    for match in re.finditer(line_comment_pattern, content, re.MULTILINE):
+                        start, end = match.span()
+                        for i in range(start, end):
+                            if i < len(not_in_comment):
+                                not_in_comment[i] = False
+                    
+                    # 查找所有函数定义
                     func_matches = list(re.finditer(func_def_pattern, content))
                     
                     for i, match in enumerate(func_matches):
                         func_name = match.group(1)
                         # 确保调用者也是有效的函数名（不是关键字）
                         if func_name not in C_KEYWORDS:
-                            # 保存调用者到文件的映射
-                            self.caller_to_file[func_name] = file_path
-                            
-                            # 确定函数体的范围
-                            start_pos = match.end()
-                            # 找到函数体的结束位置（匹配括号）
-                            bracket_count = 1
-                            end_pos = start_pos
-                            
-                            while end_pos < len(content) and bracket_count > 0:
-                                if content[end_pos] == '{':
-                                    bracket_count += 1
-                                elif content[end_pos] == '}':
-                                    bracket_count -= 1
-                                end_pos += 1
-                            
-                            # 提取函数体
-                            func_body = content[start_pos:end_pos-1] if bracket_count == 0 else content[start_pos:]
-                            # 移除函数体中的注释
-                            func_body_no_comments = self.remove_comments(func_body)
-                            
-                            # 找出当前函数体中的所有函数调用（使用移除注释后的函数体）
-                            calls = re.findall(func_call_pattern, func_body_no_comments)
-                            
-                            # 去重
-                            unique_calls = list(set(calls))
-                            
-                            # 过滤掉C语言关键字、控制流语句和白名单中的函数调用
-                            for call in unique_calls:
-                                if call not in C_KEYWORDS and call not in self.whitelist:
-                                    if call not in self.function_calls[func_name]:
-                                        self.function_calls[func_name].append(call)
+                            # 检查函数定义是否在注释外
+                            func_start = match.start()
+                            if func_start < len(not_in_comment) and not_in_comment[func_start]:
+                                # 保存调用者到文件的映射
+                                self.caller_to_file[func_name] = file_path
+                                
+                                # 确定函数体的范围
+                                start_pos = match.end()
+                                # 找到函数体的结束位置（匹配括号）
+                                bracket_count = 1
+                                end_pos = start_pos
+                                
+                                while end_pos < len(content) and bracket_count > 0:
+                                    if content[end_pos] == '{':
+                                        bracket_count += 1
+                                    elif content[end_pos] == '}':
+                                        bracket_count -= 1
+                                    end_pos += 1
+                                
+                                # 提取函数体
+                                func_body = content[start_pos:end_pos-1] if bracket_count == 0 else content[start_pos:]
+                                # 移除函数体中的注释
+                                func_body_no_comments = self.remove_comments(func_body)
+                                
+                                # 找出当前函数体中的所有函数调用
+                                calls = re.findall(func_call_pattern, func_body_no_comments)
+                                
+                                # 去重
+                                unique_calls = list(set(calls))
+                                
+                                # 过滤掉C语言关键字、控制流语句和白名单中的函数调用
+                                for call in unique_calls:
+                                    if call not in C_KEYWORDS and call not in self.whitelist:
+                                        if call not in self.function_calls[func_name]:
+                                            self.function_calls[func_name].append(call)
             
             except Exception as e:
                 print(f"分析文件 {file_path} 时出错: {e}")
@@ -192,7 +237,7 @@ class CCallAnalyzer:
         print(f"共分析到 {len(self.function_calls)} 个函数的调用关系")
     
     def generate_report(self, output_file='call_relations.txt', dot_file='call_graph.dot'):
-        """生成调用关系报告，按文件分组显示"""
+        """生成调用关系报告，按文件分组显示，包括没有调用关系的函数"""
         print(f"正在生成调用关系报告: {output_file}")
         
         # 确保输出目录存在
@@ -226,36 +271,34 @@ class CCallAnalyzer:
                 f.write(f"\n[{relative_path}] - 包含 {len(file_funcs)} 个函数\n")
                 f.write("-"*80 + "\n")
                 
-                # 写入该文件中的所有函数
-                for func_name, info in sorted(file_funcs.items()):
+                # 写入该文件中的所有函数，按行号排序
+                for func_name, info in sorted(file_funcs.items(), key=lambda x: x[1]['line']):
                     f.write(f"  {func_name:<30} | 行号: {info['line']}\n")
             
             # 按文件分组显示函数调用关系
             f.write("\n\n按文件分组的函数调用关系:\n")
             f.write("="*80 + "\n")
             
-            if not self.function_calls:
-                f.write("未找到函数调用关系。可能是解析规则需要调整。\n")
-            else:
-                # 按文件组织调用者
-                file_to_callers = defaultdict(list)
-                for caller in self.function_calls.keys():
-                    if caller in self.caller_to_file:
-                        file_path = self.caller_to_file[caller]
-                        file_to_callers[file_path].append(caller)
+            # 按文件组织所有函数（包括没有调用关系的）
+            file_to_all_funcs = defaultdict(list)
+            for func_name in self.func_to_file:
+                file_path = self.func_to_file[func_name]
+                file_to_all_funcs[file_path].append(func_name)
+            
+            # 按文件路径排序并显示所有函数
+            for file_path in sorted(file_to_all_funcs.keys()):
+                relative_path = os.path.relpath(file_path, self.root_dir)
+                # 按行号排序函数
+                all_funcs = sorted(file_to_all_funcs[file_path], key=lambda x: self.function_defs.get(file_path, {}).get(x, {}).get('line', 0))
                 
-                # 按文件路径排序并显示
-                for file_path in sorted(file_to_callers.keys()):
-                    relative_path = os.path.relpath(file_path, self.root_dir)
-                    callers = sorted(file_to_callers[file_path])
-                    
-                    f.write(f"\n[{relative_path}]\n")
-                    f.write("-"*80 + "\n")
-                    
-                    for caller in callers:
-                        callees = self.function_calls[caller]
-                        f.write(f"  {caller} 调用了:")
-                        for callee in sorted(callees):
+                f.write(f"\n[{relative_path}]\n")
+                f.write("-"*80 + "\n")
+                
+                for func_name in all_funcs:
+                    if func_name in self.function_calls and self.function_calls[func_name]:
+                        # 有调用关系的函数
+                        f.write(f"  {func_name} 调用了:")
+                        for callee in sorted(self.function_calls[func_name]):
                             # 找到被调用函数所在的文件
                             if callee in self.func_to_file:
                                 callee_file = os.path.relpath(self.func_to_file[callee], self.root_dir)
@@ -263,6 +306,12 @@ class CCallAnalyzer:
                                 callee_file = "(未知)"
                             f.write(f"\n    -> {callee} [{callee_file}]")
                         f.write("\n\n")
+                    else:
+                        # 没有调用其他函数的函数
+                        f.write(f"  {func_name} 调用了: 无\n\n")
+            
+            if not any(self.function_calls.values()):
+                f.write("未找到函数调用关系。可能是解析规则需要调整。\n")
         
         # 确保DOT文件目录存在
         dot_dir = os.path.dirname(dot_file)
