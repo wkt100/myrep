@@ -1,0 +1,569 @@
+digraph CallGraph {
+    rankdir=LR;
+    node [shape=box];
+
+    subgraph cluster_container_c {
+        label = "container.c";
+        style = filled;
+        color = lightgrey;
+        "container_click";
+        "PtDestroyWidget";
+        "strncmp";
+        "PtWidgetIsClass";
+        "PtGetResource";
+    }
+    subgraph cluster_container_h {
+        label = "container.h";
+        style = filled;
+        color = lightgrey;
+    }
+    subgraph cluster_hzPanel1a_c {
+        label = "hzPanel1a.c";
+        style = filled;
+        color = lightgrey;
+        "change_widgetState_hzP1a";
+        "set_equip_status_hzPanel1a";
+        "set_hzPanel1a_Q_State";
+        "set_hzPanel1a_ts_rs_state";
+        "PtSetResource";
+        "trace_hzP1a_orderBtn_is_auto_up";
+        "PtGetResource";
+        "ftime";
+        "panelBtnFloat";
+        "panelBtnGUI";
+        "photon_show_msg";
+        "check_app_mode";
+        "atoi";
+        "set_hzPanel1a_block_state";
+        "end_dragging_hzP1a_win";
+        "PhGetData";
+        "get_PNames_hzPanel1a_configuration";
+        "photon_get_instruction_id";
+        "photon_get_ana_panel_info";
+        "set_hzPanel1a_equipmentWidget";
+        "strtol";
+        "ApGetWidgetPtr";
+        "set_hzPanel1a_equipmentName";
+        "strcpy";
+        "replace_special_character_hzp1a";
+        "free";
+        "set_widget_show_hide_hzPanel1a";
+        "set_hzPanel1a_quipment_hide";
+        "hzPanel1a_init";
+        "ApGetInstance";
+        "start_dragging_hzP1a_win";
+        "PtWidgetExtent";
+        "btnActivate_hzP1a_click";
+        "btnAutoManu_hzP1a_click";
+        "btnIncrease_hzP1a_arm";
+        "btnIncrease_hzP1a_disarm";
+        "atof";
+        "photon_send_oper_log";
+        "btnDecrease_hzP1a_arm";
+        "btnDecrease_hzP1a_disarm";
+        "btnFastSlow_hzP1a_arm";
+        "btnFastSlow_hzP1a_disarm";
+        "btnExecute_hzP1a_arm";
+        "btnExecute_hzP1a_disarm";
+        "memcpy";
+        "itoa";
+        "photon_send_display_log";
+        "btnExit_hzP1a_click";
+        "set_hzPanels_equipment_widgets_close";
+        "photon_close_panel_by_widget_pointer";
+        "photon_close_panel";
+        "hzPanel1a_setUp";
+        "set_widget_color";
+        "set_dev_widget_direction";
+        "photon_reset_panel_vars";
+        "photon_init_oper_panel";
+        "photon_open_panel_by_widget_pointer";
+        "hzPanel1a_periodRefersh";
+        "set_btnState_by_mode_hzP1a";
+        "increase_timer_calltimes";
+        "hzPanel1a_NC_screen_setUp";
+        "set_hzPanel1a_NC_screen_equipmentWidget";
+        "Set_hzPanel1a_NCWidgetIndex";
+        "set_valves_widgets_close";
+        "set_dampers_widgets_close";
+        "set_specal_widgets_close";
+        "set_pumps_widgets_close";
+        "set_breakers_widgets_close";
+        "str_right_shift_one_hzp1a";
+        "write_log";
+        "va_start";
+        "time";
+        "localtime";
+        "fprintf";
+        "vfprintf";
+        "va_end";
+        "fflush";
+    }
+    subgraph cluster_hzPanel1a_h {
+        label = "hzPanel1a.h";
+        style = filled;
+        color = lightgrey;
+        "set_operate_button";
+        "set_all_disable";
+        "check_app_mode";
+        "panelBtnGUI";
+        "panelBtnFloat";
+        "panelBtnSink";
+        "panelBtnGUINoClr";
+        "panelBtnFloatNoClr";
+        "panelBtnSinkNoClr";
+        "change_widgetState_hzP1a";
+        "trace_hzP1a_orderBtn_is_auto_up";
+        "set_hzPanel1a_block_state";
+        "set_widget_show_hide_hzPanel1a";
+        "get_PNames_hzPanel1a_configuration";
+        "set_hzPanel1a_ts_rs_state";
+        "set_equip_status_hzPanel1a";
+        "set_hzPanel1a_Q_State";
+        "set_hzPanel1a_equipmentWidget";
+        "set_hzPanel1a_NC_screen_equipmentWidget";
+        "set_hzPanel1a_equipmentName";
+        "set_hzPanel1a_quipment_hide";
+        "set_btnState_by_mode_hzP1a";
+        "Set_hzPanel1a_NCWidgetIndex";
+        "set_pumps_widgets_close";
+        "set_valves_widgets_close";
+        "set_dampers_widgets_close";
+        "set_breakers_widgets_close";
+        "set_specal_widgets_close";
+        "set_hzPanels_equipment_widgets_close";
+        "replace_special_character_hzp1a";
+        "str_right_shift_one_hzp1a";
+    }
+    subgraph cluster_Log_c {
+        label = "Log.c";
+        style = filled;
+        color = lightgrey;
+        "SetLogNewStartTime";
+        "Log_Init";
+        "InitTemplate_Log";
+        "getLogCurrentScid";
+        "photon_show_msg";
+        "strcpy";
+        "memcpy";
+        "ReadLogByType";
+        "setlogBtnDisable";
+        "UpdateLogInfo";
+        "PtSetResource";
+        "logBtnSink";
+        "logBtnFloat";
+        "PtGetResource";
+        "clean_timer";
+        "PtDestroyWidget";
+        "photon_init_sys_info";
+        "periodRefersh";
+        "getLogRequireNum";
+        "btnLogReal_click";
+        "SetCheckBoxState";
+        "btnLogHistoryClick";
+        "setlogBtnEnable";
+        "btnLogPrePageClick";
+        "btnLogPageUpClick";
+        "btnLogNextPage";
+        "btnLogPageDown";
+        "btnLogPreRowClick";
+        "btnLogNexRowClick";
+        "btnLogSearch";
+        "checkLogTime";
+        "CheckLogTimeValid";
+        "switchLogByType";
+        "SwitchLog";
+        "CheckBox_Time_Click";
+        "InverseValve";
+        "clearInfo";
+        "PtListDeleteAllItems";
+        "existsNull";
+        "itoa";
+        "free";
+        "logBtnGUI";
+        "atoi";
+        "checkLogDay";
+        "checkLogLeapYear";
+        "ftime";
+        "scid_time_to_std_sec";
+        "mktime";
+        "localtime";
+    }
+    subgraph cluster_Log_h {
+        label = "Log.h";
+        style = filled;
+        color = lightgrey;
+        "clearInfo";
+        "existsNull";
+        "InitTemplate_Log";
+        "UpdateLogInfo";
+        "setlogBtnDisable";
+        "setlogBtnEnable";
+        "logBtnGUI";
+        "logBtnFloat";
+        "logBtnSink";
+        "SetCheckBoxState";
+        "InverseValve";
+        "getLogRequireNum";
+        "getLogCurrentScid";
+        "checkLogTime";
+        "checkLogDay";
+        "checkLogLeapYear";
+        "CheckLogTimeValid";
+    }
+    "container_click" -> "PtGetResource"
+    "container_click" -> "PtDestroyWidget"
+    "container_click" -> "strncmp"
+    "container_click" -> "PtWidgetChildBack"
+    "container_click" -> "PtWidgetIsClass"
+    "container_click" -> "PtWidgetBrotherInFront"
+    "change_widgetState_hzP1a" -> "PgRGB"
+    "change_widgetState_hzP1a" -> "PtSetResource"
+    "change_widgetState_hzP1a" -> "PtGetResource"
+    "change_widgetState_hzP1a" -> "PtWidgetIsClass"
+    "change_widgetState_hzP1a" -> "set_equip_status_hzPanel1a"
+    "change_widgetState_hzP1a" -> "ApGetWidgetPtr"
+    "change_widgetState_hzP1a" -> "panelBtnFloat"
+    "change_widgetState_hzP1a" -> "panelBtnGUI"
+    "change_widgetState_hzP1a" -> "set_hzPanel1a_Q_State"
+    "change_widgetState_hzP1a" -> "set_hzPanel1a_ts_rs_state"
+    "change_widgetState_hzP1a" -> "memcpy"
+    "trace_hzP1a_orderBtn_is_auto_up" -> "PtGetResource"
+    "trace_hzP1a_orderBtn_is_auto_up" -> "photon_show_msg"
+    "trace_hzP1a_orderBtn_is_auto_up" -> "panelBtnFloat"
+    "trace_hzP1a_orderBtn_is_auto_up" -> "panelBtnGUI"
+    "trace_hzP1a_orderBtn_is_auto_up" -> "ftime"
+    "check_app_mode" -> "atoi"
+    "set_hzPanel1a_block_state" -> "PgRGB"
+    "set_hzPanel1a_block_state" -> "PtSetResource"
+    "set_hzPanel1a_block_state" -> "ApGetWidgetPtr"
+    "set_hzPanel1a_block_state" -> "panelBtnGUI"
+    "set_hzPanel1a_block_state" -> "panelBtnGUINoClr"
+    "end_dragging_hzP1a_win" -> "PtSetResource"
+    "end_dragging_hzP1a_win" -> "PhGetData"
+    "get_PNames_hzPanel1a_configuration" -> "PtSetResource"
+    "get_PNames_hzPanel1a_configuration" -> "photon_get_instruction_id"
+    "get_PNames_hzPanel1a_configuration" -> "ApGetWidgetPtr"
+    "get_PNames_hzPanel1a_configuration" -> "photon_get_ana_panel_info"
+    "get_PNames_hzPanel1a_configuration" -> "memcpy"
+    "set_hzPanel1a_equipmentWidget" -> "PtSetResource"
+    "set_hzPanel1a_equipmentWidget" -> "PtGetResource"
+    "set_hzPanel1a_equipmentWidget" -> "strtol"
+    "set_hzPanel1a_equipmentWidget" -> "photon_show_msg"
+    "set_hzPanel1a_equipmentWidget" -> "PtWidgetIsClass"
+    "set_hzPanel1a_equipmentWidget" -> "ApName"
+    "set_hzPanel1a_equipmentWidget" -> "ApGetWidgetPtr"
+    "set_hzPanel1a_equipmentWidget" -> "photon_get_ana_panel_info"
+    "set_hzPanel1a_equipmentWidget" -> "itoa"
+    "set_hzPanel1a_ts_rs_state" -> "PtWidgetIsClass"
+    "set_hzPanel1a_ts_rs_state" -> "PtSetResource"
+    "set_hzPanel1a_ts_rs_state" -> "ApGetWidgetPtr"
+    "set_hzPanel1a_Q_State" -> "PtWidgetIsClass"
+    "set_hzPanel1a_Q_State" -> "PtSetResource"
+    "set_hzPanel1a_Q_State" -> "ApGetWidgetPtr"
+    "set_equip_status_hzPanel1a" -> "PtWidgetIsClass"
+    "set_equip_status_hzPanel1a" -> "PtSetResource"
+    "set_equip_status_hzPanel1a" -> "ApGetWidgetPtr"
+    "set_hzPanel1a_equipmentName" -> "replace_special_character_hzp1a"
+    "set_hzPanel1a_equipmentName" -> "PtSetResource"
+    "set_hzPanel1a_equipmentName" -> "free"
+    "set_hzPanel1a_equipmentName" -> "ApGetWidgetPtr"
+    "set_hzPanel1a_equipmentName" -> "strcpy"
+    "set_widget_show_hide_hzPanel1a" -> "PtWidgetIsClass"
+    "set_widget_show_hide_hzPanel1a" -> "PtSetResource"
+    "set_widget_show_hide_hzPanel1a" -> "ApGetWidgetPtr"
+    "set_hzPanel1a_quipment_hide" -> "PtSetResource"
+    "set_hzPanel1a_quipment_hide" -> "ApGetWidgetPtr"
+    "hzPanel1a_init" -> "PgRGB"
+    "hzPanel1a_init" -> "PtSetResource"
+    "hzPanel1a_init" -> "ApGetWidgetPtr"
+    "hzPanel1a_init" -> "panelBtnGUI"
+    "hzPanel1a_init" -> "ApGetInstance"
+    "hzPanel1a_init" -> "memcpy"
+    "start_dragging_hzP1a_win" -> "PtGetResource"
+    "start_dragging_hzP1a_win" -> "PtWidgetRid"
+    "start_dragging_hzP1a_win" -> "PhInputGroup"
+    "start_dragging_hzP1a_win" -> "ApGetInstance"
+    "start_dragging_hzP1a_win" -> "PhInitDrag"
+    "start_dragging_hzP1a_win" -> "PtWidgetExtent"
+    "start_dragging_hzP1a_win" -> "PhGetData"
+    "btnActivate_hzP1a_click" -> "PgRGB"
+    "btnActivate_hzP1a_click" -> "PtSetResource"
+    "btnActivate_hzP1a_click" -> "ApGetWidgetPtr"
+    "btnActivate_hzP1a_click" -> "panelBtnFloat"
+    "btnActivate_hzP1a_click" -> "panelBtnGUI"
+    "btnActivate_hzP1a_click" -> "ApGetInstance"
+    "btnActivate_hzP1a_click" -> "panelBtnGUINoClr"
+    "btnAutoManu_hzP1a_click" -> "ApGetWidgetPtr"
+    "btnAutoManu_hzP1a_click" -> "panelBtnFloat"
+    "btnAutoManu_hzP1a_click" -> "panelBtnSink"
+    "btnAutoManu_hzP1a_click" -> "ApGetInstance"
+    "btnAutoManu_hzP1a_click" -> "ftime"
+    "btnIncrease_hzP1a_arm" -> "PtSetResource"
+    "btnIncrease_hzP1a_arm" -> "ApGetWidgetPtr"
+    "btnIncrease_hzP1a_arm" -> "ApGetInstance"
+    "btnIncrease_hzP1a_arm" -> "ftime"
+    "btnIncrease_hzP1a_disarm" -> "atof"
+    "btnIncrease_hzP1a_disarm" -> "PtSetResource"
+    "btnIncrease_hzP1a_disarm" -> "PtGetResource"
+    "btnIncrease_hzP1a_disarm" -> "photon_send_oper_log"
+    "btnIncrease_hzP1a_disarm" -> "photon_show_msg"
+    "btnIncrease_hzP1a_disarm" -> "ApGetWidgetPtr"
+    "btnIncrease_hzP1a_disarm" -> "ApGetInstance"
+    "btnIncrease_hzP1a_disarm" -> "ftime"
+    "btnIncrease_hzP1a_disarm" -> "memcpy"
+    "btnIncrease_hzP1a_disarm" -> "atoi"
+    "btnDecrease_hzP1a_arm" -> "PtSetResource"
+    "btnDecrease_hzP1a_arm" -> "ApGetWidgetPtr"
+    "btnDecrease_hzP1a_arm" -> "ApGetInstance"
+    "btnDecrease_hzP1a_arm" -> "ftime"
+    "btnDecrease_hzP1a_disarm" -> "atof"
+    "btnDecrease_hzP1a_disarm" -> "PtSetResource"
+    "btnDecrease_hzP1a_disarm" -> "PtGetResource"
+    "btnDecrease_hzP1a_disarm" -> "photon_send_oper_log"
+    "btnDecrease_hzP1a_disarm" -> "photon_show_msg"
+    "btnDecrease_hzP1a_disarm" -> "ApGetWidgetPtr"
+    "btnDecrease_hzP1a_disarm" -> "ApGetInstance"
+    "btnDecrease_hzP1a_disarm" -> "ftime"
+    "btnDecrease_hzP1a_disarm" -> "memcpy"
+    "btnDecrease_hzP1a_disarm" -> "atoi"
+    "btnFastSlow_hzP1a_arm" -> "PgRGB"
+    "btnFastSlow_hzP1a_arm" -> "PtSetResource"
+    "btnFastSlow_hzP1a_arm" -> "ApGetWidgetPtr"
+    "btnFastSlow_hzP1a_arm" -> "ApGetInstance"
+    "btnFastSlow_hzP1a_disarm" -> "atof"
+    "btnFastSlow_hzP1a_disarm" -> "PtGetResource"
+    "btnFastSlow_hzP1a_disarm" -> "photon_send_oper_log"
+    "btnFastSlow_hzP1a_disarm" -> "photon_show_msg"
+    "btnFastSlow_hzP1a_disarm" -> "ApGetWidgetPtr"
+    "btnFastSlow_hzP1a_disarm" -> "panelBtnFloat"
+    "btnFastSlow_hzP1a_disarm" -> "ApGetInstance"
+    "btnFastSlow_hzP1a_disarm" -> "memcpy"
+    "btnFastSlow_hzP1a_disarm" -> "atoi"
+    "btnExecute_hzP1a_arm" -> "PgRGB"
+    "btnExecute_hzP1a_arm" -> "PtSetResource"
+    "btnExecute_hzP1a_arm" -> "ApGetWidgetPtr"
+    "btnExecute_hzP1a_arm" -> "ApGetInstance"
+    "btnExecute_hzP1a_disarm" -> "itoa"
+    "btnExecute_hzP1a_disarm" -> "std_sec_to_scid_time"
+    "btnExecute_hzP1a_disarm" -> "ApGetWidgetPtr"
+    "btnExecute_hzP1a_disarm" -> "panelBtnFloat"
+    "btnExecute_hzP1a_disarm" -> "panelBtnGUI"
+    "btnExecute_hzP1a_disarm" -> "ApGetInstance"
+    "btnExecute_hzP1a_disarm" -> "strcpy"
+    "btnExecute_hzP1a_disarm" -> "atoi"
+    "btnExecute_hzP1a_disarm" -> "atof"
+    "btnExecute_hzP1a_disarm" -> "photon_send_oper_log"
+    "btnExecute_hzP1a_disarm" -> "memcpy"
+    "btnExecute_hzP1a_disarm" -> "PtGetResource"
+    "btnExecute_hzP1a_disarm" -> "photon_show_msg"
+    "btnExecute_hzP1a_disarm" -> "photon_send_display_log"
+    "btnExecute_hzP1a_disarm" -> "ftime"
+    "btnExit_hzP1a_click" -> "PtSetResource"
+    "btnExit_hzP1a_click" -> "set_hzPanels_equipment_widgets_close"
+    "btnExit_hzP1a_click" -> "ApGetWidgetPtr"
+    "btnExit_hzP1a_click" -> "panelBtnSink"
+    "btnExit_hzP1a_click" -> "photon_close_panel"
+    "btnExit_hzP1a_click" -> "ApGetInstance"
+    "btnExit_hzP1a_click" -> "photon_close_panel_by_widget_pointer"
+    "hzPanel1a_setUp" -> "photon_init_oper_panel"
+    "hzPanel1a_setUp" -> "get_PNames_hzPanel1a_configuration"
+    "hzPanel1a_setUp" -> "photon_reset_panel_vars"
+    "hzPanel1a_setUp" -> "ApGetInstance"
+    "hzPanel1a_setUp" -> "set_hzPanel1a_equipmentWidget"
+    "hzPanel1a_setUp" -> "set_widget_show_hide_hzPanel1a"
+    "hzPanel1a_setUp" -> "strcpy"
+    "hzPanel1a_setUp" -> "PtSetResource"
+    "hzPanel1a_setUp" -> "set_dev_widget_direction"
+    "hzPanel1a_setUp" -> "set_widget_color"
+    "hzPanel1a_setUp" -> "photon_open_panel_by_widget_pointer"
+    "hzPanel1a_setUp" -> "set_hzPanel1a_quipment_hide"
+    "hzPanel1a_setUp" -> "photon_show_msg"
+    "hzPanel1a_setUp" -> "set_hzPanel1a_equipmentName"
+    "hzPanel1a_periodRefersh" -> "check_app_mode"
+    "hzPanel1a_periodRefersh" -> "photon_show_msg"
+    "hzPanel1a_periodRefersh" -> "set_btnState_by_mode_hzP1a"
+    "hzPanel1a_periodRefersh" -> "set_hzPanel1a_block_state"
+    "hzPanel1a_periodRefersh" -> "increase_timer_calltimes"
+    "hzPanel1a_periodRefersh" -> "trace_hzP1a_orderBtn_is_auto_up"
+    "hzPanel1a_periodRefersh" -> "ApGetWidgetPtr"
+    "hzPanel1a_periodRefersh" -> "ApGetInstance"
+    "hzPanel1a_periodRefersh" -> "memcpy"
+    "hzPanel1a_periodRefersh" -> "change_widgetState_hzP1a"
+    "set_btnState_by_mode_hzP1a" -> "PgRGB"
+    "set_btnState_by_mode_hzP1a" -> "PtSetResource"
+    "set_btnState_by_mode_hzP1a" -> "PtGetResource"
+    "set_btnState_by_mode_hzP1a" -> "ApGetWidgetPtr"
+    "set_btnState_by_mode_hzP1a" -> "panelBtnGUI"
+    "set_btnState_by_mode_hzP1a" -> "panelBtnFloat"
+    "hzPanel1a_NC_screen_setUp" -> "photon_init_oper_panel"
+    "hzPanel1a_NC_screen_setUp" -> "get_PNames_hzPanel1a_configuration"
+    "hzPanel1a_NC_screen_setUp" -> "photon_reset_panel_vars"
+    "hzPanel1a_NC_screen_setUp" -> "set_widget_show_hide_hzPanel1a"
+    "hzPanel1a_NC_screen_setUp" -> "strcpy"
+    "hzPanel1a_NC_screen_setUp" -> "PtSetResource"
+    "hzPanel1a_NC_screen_setUp" -> "set_dev_widget_direction"
+    "hzPanel1a_NC_screen_setUp" -> "set_hzPanel1a_NC_screen_equipmentWidget"
+    "hzPanel1a_NC_screen_setUp" -> "set_widget_color"
+    "hzPanel1a_NC_screen_setUp" -> "photon_open_panel_by_widget_pointer"
+    "hzPanel1a_NC_screen_setUp" -> "Set_hzPanel1a_NCWidgetIndex"
+    "hzPanel1a_NC_screen_setUp" -> "set_hzPanel1a_quipment_hide"
+    "hzPanel1a_NC_screen_setUp" -> "photon_show_msg"
+    "hzPanel1a_NC_screen_setUp" -> "set_hzPanel1a_equipmentName"
+    "set_hzPanels_equipment_widgets_close" -> "set_breakers_widgets_close"
+    "set_hzPanels_equipment_widgets_close" -> "set_pumps_widgets_close"
+    "set_hzPanels_equipment_widgets_close" -> "set_valves_widgets_close"
+    "set_hzPanels_equipment_widgets_close" -> "set_specal_widgets_close"
+    "set_hzPanels_equipment_widgets_close" -> "set_dampers_widgets_close"
+    "set_pumps_widgets_close" -> "PtSetResource"
+    "set_pumps_widgets_close" -> "PtWidgetIsClass"
+    "set_pumps_widgets_close" -> "ApName"
+    "set_pumps_widgets_close" -> "ApGetWidgetPtr"
+    "set_valves_widgets_close" -> "PtSetResource"
+    "set_valves_widgets_close" -> "PtWidgetIsClass"
+    "set_valves_widgets_close" -> "ApName"
+    "set_valves_widgets_close" -> "ApGetWidgetPtr"
+    "set_dampers_widgets_close" -> "PtSetResource"
+    "set_dampers_widgets_close" -> "PtWidgetIsClass"
+    "set_dampers_widgets_close" -> "ApName"
+    "set_dampers_widgets_close" -> "ApGetWidgetPtr"
+    "set_breakers_widgets_close" -> "PtSetResource"
+    "set_breakers_widgets_close" -> "PtWidgetIsClass"
+    "set_breakers_widgets_close" -> "ApName"
+    "set_breakers_widgets_close" -> "ApGetWidgetPtr"
+    "set_specal_widgets_close" -> "PtSetResource"
+    "set_specal_widgets_close" -> "PtWidgetIsClass"
+    "set_specal_widgets_close" -> "ApName"
+    "set_specal_widgets_close" -> "ApGetWidgetPtr"
+    "Set_hzPanel1a_NCWidgetIndex" -> "ApGetWidgetPtr"
+    "replace_special_character_hzp1a" -> "str_right_shift_one_hzp1a"
+    "replace_special_character_hzp1a" -> "strstr"
+    "replace_special_character_hzp1a" -> "memcpy"
+    "write_log" -> "va_start"
+    "write_log" -> "fflush"
+    "write_log" -> "fprintf"
+    "write_log" -> "va_end"
+    "write_log" -> "vfprintf"
+    "write_log" -> "localtime"
+    "write_log" -> "time"
+    "Log_Init" -> "UpdateLogInfo"
+    "Log_Init" -> "logBtnSink"
+    "Log_Init" -> "setlogBtnDisable"
+    "Log_Init" -> "SetLogNewStartTime"
+    "Log_Init" -> "getLogCurrentScid"
+    "Log_Init" -> "ReadLogByType"
+    "Log_Init" -> "logBtnFloat"
+    "Log_Init" -> "strcpy"
+    "Log_Init" -> "InitTemplate_Log"
+    "Log_Init" -> "PtSetResource"
+    "Log_Init" -> "memcpy"
+    "Log_Init" -> "PtGetResource"
+    "Log_Init" -> "strstr"
+    "Log_Init" -> "photon_show_msg"
+    "InitTemplate_Log" -> "photon_init_sys_info"
+    "InitTemplate_Log" -> "PtDestroyWidget"
+    "InitTemplate_Log" -> "clean_timer"
+    "periodRefersh" -> "UpdateLogInfo"
+    "periodRefersh" -> "photon_show_msg"
+    "periodRefersh" -> "getLogRequireNum"
+    "periodRefersh" -> "getLogCurrentScid"
+    "periodRefersh" -> "strcpy"
+    "periodRefersh" -> "ReadLogByType"
+    "periodRefersh" -> "memcpy"
+    "btnLogReal_click" -> "SetCheckBoxState"
+    "btnLogReal_click" -> "UpdateLogInfo"
+    "btnLogReal_click" -> "logBtnSink"
+    "btnLogReal_click" -> "photon_show_msg"
+    "btnLogReal_click" -> "setlogBtnDisable"
+    "btnLogReal_click" -> "logBtnFloat"
+    "btnLogReal_click" -> "getLogCurrentScid"
+    "btnLogReal_click" -> "strcpy"
+    "btnLogReal_click" -> "ReadLogByType"
+    "btnLogReal_click" -> "memcpy"
+    "btnLogHistoryClick" -> "SetCheckBoxState"
+    "btnLogHistoryClick" -> "UpdateLogInfo"
+    "btnLogHistoryClick" -> "logBtnSink"
+    "btnLogHistoryClick" -> "photon_show_msg"
+    "btnLogHistoryClick" -> "logBtnFloat"
+    "btnLogHistoryClick" -> "setlogBtnEnable"
+    "btnLogHistoryClick" -> "getLogCurrentScid"
+    "btnLogHistoryClick" -> "strcpy"
+    "btnLogHistoryClick" -> "ReadLogByType"
+    "btnLogHistoryClick" -> "memcpy"
+    "btnLogPrePageClick" -> "UpdateLogInfo"
+    "btnLogPrePageClick" -> "photon_show_msg"
+    "btnLogPrePageClick" -> "strncmp"
+    "btnLogPrePageClick" -> "strcpy"
+    "btnLogPrePageClick" -> "ReadLogByType"
+    "btnLogPageUpClick" -> "UpdateLogInfo"
+    "btnLogPageUpClick" -> "photon_show_msg"
+    "btnLogPageUpClick" -> "memcpy"
+    "btnLogPageUpClick" -> "getLogRequireNum"
+    "btnLogPageUpClick" -> "getLogCurrentScid"
+    "btnLogPageUpClick" -> "strcpy"
+    "btnLogPageUpClick" -> "ReadLogByType"
+    "btnLogNextPage" -> "UpdateLogInfo"
+    "btnLogNextPage" -> "photon_show_msg"
+    "btnLogNextPage" -> "getLogCurrentScid"
+    "btnLogNextPage" -> "memcpy"
+    "btnLogNextPage" -> "ReadLogByType"
+    "btnLogPageDown" -> "UpdateLogInfo"
+    "btnLogPageDown" -> "photon_show_msg"
+    "btnLogPageDown" -> "memcpy"
+    "btnLogPageDown" -> "getLogCurrentScid"
+    "btnLogPageDown" -> "strcpy"
+    "btnLogPageDown" -> "ReadLogByType"
+    "btnLogPreRowClick" -> "UpdateLogInfo"
+    "btnLogPreRowClick" -> "photon_show_msg"
+    "btnLogPreRowClick" -> "strncmp"
+    "btnLogPreRowClick" -> "strcpy"
+    "btnLogPreRowClick" -> "ReadLogByType"
+    "btnLogNexRowClick" -> "UpdateLogInfo"
+    "btnLogNexRowClick" -> "photon_show_msg"
+    "btnLogNexRowClick" -> "getLogCurrentScid"
+    "btnLogNexRowClick" -> "memcpy"
+    "btnLogNexRowClick" -> "ReadLogByType"
+    "btnLogSearch" -> "UpdateLogInfo"
+    "btnLogSearch" -> "photon_show_msg"
+    "btnLogSearch" -> "CheckLogTimeValid"
+    "btnLogSearch" -> "checkLogTime"
+    "btnLogSearch" -> "getLogRequireNum"
+    "btnLogSearch" -> "ReadLogByType"
+    "SwitchLog" -> "PtDestroyWidget"
+    "CheckBox_Time_Click" -> "SetCheckBoxState"
+    "CheckBox_Time_Click" -> "InverseValve"
+    "clearInfo" -> "PtListDeleteAllItems"
+    "UpdateLogInfo" -> "PtSetResource"
+    "UpdateLogInfo" -> "free"
+    "UpdateLogInfo" -> "photon_show_msg"
+    "UpdateLogInfo" -> "existsNull"
+    "UpdateLogInfo" -> "itoa"
+    "UpdateLogInfo" -> "PtListAddItems"
+    "UpdateLogInfo" -> "memcpy"
+    "UpdateLogInfo" -> "PtListDeleteAllItems"
+    "setlogBtnDisable" -> "logBtnGUI"
+    "setlogBtnEnable" -> "logBtnFloat"
+    "logBtnGUI" -> "PgRGB"
+    "logBtnGUI" -> "PtSetResource"
+    "logBtnFloat" -> "PgRGB"
+    "logBtnFloat" -> "PtSetResource"
+    "logBtnSink" -> "PgRGB"
+    "logBtnSink" -> "PtSetResource"
+    "logbutton_state" -> "PgRGB"
+    "logbutton_state" -> "PtSetArg"
+    "SetCheckBoxState" -> "PtSetResource"
+    "checkLogTime" -> "PtGetResource"
+    "checkLogTime" -> "checkLogDay"
+    "checkLogTime" -> "atoi"
+    "checkLogDay" -> "checkLogLeapYear"
+    "getLogCurrentScid" -> "ftime"
+    "getLogCurrentScid" -> "std_sec_to_scid_time"
+    "CheckLogTimeValid" -> "scid_time_to_std_sec"
+    "CheckLogTimeValid" -> "photon_show_msg"
+    "CheckLogTimeValid" -> "getLogCurrentScid"
+    "CheckLogTimeValid" -> "mktime"
+    "BtnPeriodRefresh" -> "logBtnFloat"
+    "SetLogNewStartTime" -> "PtSetResource"
+    "SetLogNewStartTime" -> "ftime"
+    "SetLogNewStartTime" -> "localtime"
+}

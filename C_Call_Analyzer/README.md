@@ -9,6 +9,7 @@
 3. **调用关系分析** - 分析函数之间的调用关系
 4. **按文件分组显示** - 按源文件路径组织和显示函数定义和调用关系
 5. **可视化支持** - 生成DOT格式的调用图，支持使用Graphviz工具转换为可视化图表
+6. **白名单功能** - 支持指定函数白名单，在分析过程中忽略特定函数
 
 ## 系统要求
 
@@ -50,6 +51,36 @@ python analyze_c_calls.py
 python analyze_c_calls.py -d path/to/your/c/project
 ```
 
+### 指定输出文件路径
+
+使用 `-o` 或 `--output` 参数指定报告输出文件路径：
+
+```bash
+python analyze_c_calls.py -d examples/src -o output/my_report.txt
+```
+
+使用 `-g` 或 `--graph` 参数指定DOT调用图输出文件路径：
+
+```bash
+python analyze_c_calls.py -d examples/src -g output/my_graph.dot
+```
+
+也可以同时指定两个输出文件路径：
+
+```bash
+python analyze_c_calls.py -d examples/src -o output/my_report.txt -g output/my_graph.dot
+```
+
+### 命令行参数说明
+
+| 参数 | 全称 | 描述 | 默认值 |
+|------|------|------|--------|
+| `-d` | `--dir` | 要分析的目录路径 | 当前目录 |
+| `-o` | `--output` | 报告输出文件路径 | call_relations.txt |
+| `-g` | `--graph` | DOT调用图输出文件路径 | call_graph.dot |
+| `-w` | `--whitelist` | 白名单函数文件路径 | 无 |
+| `-f` | `--functions` | 要忽略的函数名列表 | 无 |
+
 ### 分析示例代码
 
 要分析提供的示例代码，可以运行：
@@ -58,12 +89,51 @@ python analyze_c_calls.py -d path/to/your/c/project
 python analyze_c_calls.py -d examples/src
 ```
 
+### 使用白名单功能
+
+#### 从文件加载白名单
+
+使用 `-w` 或 `--whitelist` 参数指定包含白名单函数的文件路径：
+
+```bash
+python analyze_c_calls.py -d examples/src -w whitelist.txt
+```
+
+白名单文件格式：
+```
+# 这是注释行，以#开头
+Function1Name
+Function2Name
+# 另一个注释
+Function3Name
+```
+
+#### 直接在命令行指定白名单函数
+
+使用 `-f` 或 `--functions` 参数直接在命令行中指定要忽略的函数名列表：
+
+```bash
+python analyze_c_calls.py -d examples/src -f Log_Init Log_Update
+```
+
+#### 同时使用两种方式
+
+可以同时使用文件和命令行参数指定白名单函数：
+
+```bash
+python analyze_c_calls.py -d examples/src -w whitelist.txt -f AdditionalFunc1 AdditionalFunc2
+```
+
+这种情况下，工具会合并来自文件和命令行的所有白名单函数。
+
 ## 输出文件
 
-工具运行后会生成以下文件：
+工具运行后会生成以下文件（可以通过命令行参数自定义路径）：
 
-1. **call_relations.txt** - 详细的函数调用关系报告，按文件分组显示
-2. **call_graph.dot** - DOT格式的函数调用关系图
+1. **call_relations.txt** - 详细的函数调用关系报告，按文件分组显示（默认路径）
+2. **call_graph.dot** - DOT格式的函数调用关系图（默认路径）
+
+> 注意：如果指定的输出目录不存在，工具会自动创建该目录
 
 ## 报告格式说明
 
@@ -169,6 +239,11 @@ dot -Tpng call_graph.dot -o call_graph.png
 4. **`C_KEYWORDS`集合** - 定义了需要过滤的C语言关键字
 
 ## 版本历史
+
+### v1.1
+- 新增白名单功能，支持从文件或命令行指定要忽略的函数
+- 优化函数定义提取逻辑，提高识别准确率
+- 修复注释中函数调用被误识别的问题
 
 ### v1.0
 - 初始版本，实现基本的函数解析和调用关系分析

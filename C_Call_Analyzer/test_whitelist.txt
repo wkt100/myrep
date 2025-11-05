@@ -1,0 +1,11 @@
+# 这是一个测试白名单文件
+# 每行一个函数名，以#开头的是注释
+ApInstanceName
+memset
+strcmp
+malloc
+sprintf
+strcat
+strlen
+strncat
+strncpy
