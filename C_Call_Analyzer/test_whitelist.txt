@@ -18,3 +18,7 @@ PtGetResource
 PgRGB
 strstr
 PtDestroyWidget
+ApGetWidgetPtr
+PtWidgetIsClass
+ApGetInstance
+ApName

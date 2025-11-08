@@ -34,6 +34,8 @@ class CCallAnalyzer:
         self.function_defs = {}
         # 修改：添加函数名到文件路径的映射 {函数名: 文件路径}
         self.func_to_file = {}
+        # 函数声明（没有函数体，只有声明） {文件路径: {函数名: {行号}}}
+        self.function_declarations = {}
         # 函数调用关系 {调用者: [被调用者列表]}
         self.function_calls = defaultdict(list)
         # 调用者到文件的映射 {调用者: 文件路径}
@@ -66,7 +68,7 @@ class CCallAnalyzer:
         print(f"共找到 {len(self.c_files)} 个C语言文件")
         return self.c_files
     
-    def extract_function_defs(self):
+    def extract_function_defs(self, debug=False):
         """提取所有函数定义，保存函数所属的文件名，忽略被注释的函数"""
         # 改进的函数定义匹配正则表达式，更准确地识别函数定义而非函数调用
         # 匹配：[返回类型] [函数名] ([参数列表]) [const] { 或 ;
@@ -74,11 +76,137 @@ class CCallAnalyzer:
         func_def_pattern = r'\b(?:(?:static|extern|inline|\w+(?:_t)?|struct\s+\w+|union\s+\w+|enum\s+\w+)(?:\s*\*)?\s+)+(\w+)\s*\([^)]*\)\s*(?:const\s*)?\{'  
         
         print("正在提取函数定义...")
+        debug_info = []  # 用于调试的信息
+        
         for file_path in self.c_files:
             # 初始化该文件的函数字典
             if file_path not in self.function_defs:
                 self.function_defs[file_path] = {}
                 
+            try:
+                with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+                    content = f.read()
+                    original_lines = content.split('\n')
+                    
+                    # 改进的注释检测：使用更精确的方法
+                    # 创建一个标记数组，表示哪些位置不在注释内
+                    not_in_comment = [True] * len(content)
+                    
+                    # 标记块注释内的位置（改进：处理嵌套注释标记）
+                    block_comment_pattern = r'/\*.*?\*/'
+                    for match in re.finditer(block_comment_pattern, content, re.DOTALL):
+                        start, end = match.span()
+                        for i in range(start, end):
+                            if i < len(not_in_comment):
+                                not_in_comment[i] = False
+                    
+                    # 标记行注释内的位置（改进：只标记到行尾）
+                    line_comment_pattern = r'//[^\n]*'
+                    for match in re.finditer(line_comment_pattern, content):
+                        start, end = match.span()
+                        for i in range(start, end):
+                            if i < len(not_in_comment):
+                                not_in_comment[i] = False
+                    
+                    # 改进的策略：使用滑动窗口方法，检查多行（最多4行）以处理各种函数定义格式
+                    # 这样可以处理返回类型、函数名、左大括号分别在不同行的情况
+                    
+                    max_lines_to_check = 4  # 最多检查4行（返回类型、函数名、参数、左大括号）
+                    
+                    for line_idx in range(len(original_lines)):
+                        # 获取要检查的多行（最多4行）
+                        lines_to_check_list = []
+                        for i in range(max_lines_to_check):
+                            if line_idx + i < len(original_lines):
+                                lines_to_check_list.append(original_lines[line_idx + i])
+                            else:
+                                break
+                        
+                        if not lines_to_check_list:
+                            continue
+                        
+                        # 合并多行进行检查
+                        lines_to_check = '\n'.join(lines_to_check_list)
+                        
+                        # 去除注释后检查
+                        lines_no_comments = self.remove_comments(lines_to_check)
+                        
+                        # 在多行中查找函数定义
+                        # 使用更宽松的模式：允许函数名和左大括号之间有换行和空格
+                        func_def_pattern_multiline = r'\b(?:(?:static|extern|inline|\w+(?:_t)?|struct\s+\w+|union\s+\w+|enum\s+\w+|int|void|char|float|double|long|short|unsigned|signed)(?:\s*\*)?\s+)+(\w+)\s*\([^)]*\)\s*(?:const\s*)?\s*\{'
+                        matches_in_lines = list(re.finditer(func_def_pattern_multiline, lines_no_comments, re.DOTALL))
+                        
+                        for match in matches_in_lines:
+                            func_name = match.group(1)
+                            
+                            # 过滤条件
+                            if func_name not in C_KEYWORDS and func_name not in self.whitelist:
+                                # 获取匹配文本
+                                matched_text = match.group(0)
+                                
+                                # 确保包含左大括号
+                                if '{' not in matched_text:
+                                    continue
+                                
+                                # 在检查的行中找到函数名的位置（可能在多行中的任何一行）
+                                func_line_idx = line_idx
+                                func_pos_in_line = -1
+                                
+                                for i, check_line in enumerate(lines_to_check_list):
+                                    func_pos = check_line.find(func_name + '(')
+                                    if func_pos >= 0:
+                                        func_line_idx = line_idx + i
+                                        func_pos_in_line = func_pos
+                                        break
+                                
+                                if func_pos_in_line >= 0:
+                                    # 计算在原始内容中的绝对位置
+                                    line_start_pos = sum(len(original_lines[i]) + 1 for i in range(func_line_idx))
+                                    absolute_pos = line_start_pos + func_pos_in_line
+                                    
+                                    # 检查该位置是否在注释外
+                                    if absolute_pos < len(not_in_comment) and not_in_comment[absolute_pos]:
+                                        # 保存函数定义信息（避免重复）
+                                        if func_name not in self.function_defs[file_path]:
+                                            self.function_defs[file_path][func_name] = {
+                                                'line': func_line_idx + 1
+                                            }
+                                            self.func_to_file[func_name] = file_path
+                                            if debug:
+                                                debug_info.append(f"  ✓ 提取: {func_name} (行 {func_line_idx + 1})")
+                                        elif debug:
+                                            debug_info.append(f"  跳过: {func_name} (行 {func_line_idx + 1}) - 已存在")
+                                    elif debug and func_name not in self.function_defs[file_path]:
+                                        debug_info.append(f"  跳过: {func_name} (行 {func_line_idx + 1}) - 在注释中")
+            except Exception as e:
+                print(f"读取文件 {file_path} 时出错: {e}")
+                if debug:
+                    debug_info.append(f"  错误: {file_path} - {e}")
+        
+        # 计算总函数数量
+        total_functions = sum(len(funcs) for funcs in self.function_defs.values())
+        print(f"共提取到 {total_functions} 个函数定义")
+        
+        # 输出调试信息
+        if debug and debug_info:
+            print("\n调试信息:")
+            for info in debug_info[:50]:  # 只显示前50条
+                print(f"  {info}")
+            if len(debug_info) > 50:
+                print(f"  ... 还有 {len(debug_info) - 50} 条调试信息")
+    
+    def extract_function_declarations(self):
+        """提取函数声明（没有函数体，只有声明，以分号结尾）"""
+        # 函数声明匹配模式：返回类型 函数名(参数) ;
+        # 注意：要排除函数定义（有函数体的）
+        func_decl_pattern = r'\b(?:(?:static|extern|inline|\w+(?:_t)?|struct\s+\w+|union\s+\w+|enum\s+\w+)(?:\s*\*)?\s+)+(\w+)\s*\([^)]*\)\s*;'
+        
+        print("正在提取函数声明...")
+        for file_path in self.c_files:
+            # 初始化该文件的函数声明字典
+            if file_path not in self.function_declarations:
+                self.function_declarations[file_path] = {}
+            
             try:
                 with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
                     content = f.read()
@@ -103,49 +231,60 @@ class CCallAnalyzer:
                             if i < len(not_in_comment):
                                 not_in_comment[i] = False
                     
-                    # 移除注释，用于查找函数定义
+                    # 移除注释，用于查找函数声明
                     content_no_comments = self.remove_comments(content)
-                    matches = list(re.finditer(func_def_pattern, content_no_comments))
                     
-                    for match in matches:
+                    # 先找出所有函数定义的位置，排除它们
+                    func_def_pattern = r'\b(?:(?:static|extern|inline|\w+(?:_t)?|struct\s+\w+|union\s+\w+|enum\s+\w+)(?:\s*\*)?\s+)+(\w+)\s*\([^)]*\)\s*(?:const\s*)?\{'
+                    def_matches = list(re.finditer(func_def_pattern, content_no_comments, re.DOTALL))
+                    defined_funcs = set()
+                    for def_match in def_matches:
+                        defined_funcs.add(def_match.group(1))
+                    
+                    # 查找函数声明
+                    decl_matches = list(re.finditer(func_decl_pattern, content_no_comments))
+                    
+                    for match in decl_matches:
                         func_name = match.group(1)
-                        # 过滤掉C语言关键字、控制流语句和白名单中的函数
-                        if func_name not in C_KEYWORDS and func_name not in self.whitelist:
+                        # 过滤条件：
+                        # 1. 不是C语言关键字
+                        # 2. 不在白名单中
+                        # 3. 不是函数定义（已经提取过的函数定义）
+                        if (func_name not in C_KEYWORDS and 
+                            func_name not in self.whitelist and
+                            func_name not in defined_funcs):
+                            
                             # 找到匹配在原始内容中的大致位置
                             pos_in_no_comments = match.start()
                             approximate_pos = 0
                             current_pos = 0
                             
                             for i, line in enumerate(original_lines):
-                                # 移除当前行的注释
                                 line_no_comments = self.remove_comments(line)
-                                # 如果行号注释后的内容可能包含匹配
                                 if current_pos + len(line_no_comments) >= pos_in_no_comments:
-                                    approximate_pos = i + 1  # 行号从1开始
+                                    approximate_pos = i + 1
                                     break
-                                current_pos += len(line_no_comments) + 1  # +1 for the newline
+                                current_pos += len(line_no_comments) + 1
                             
-                            # 检查函数定义是否在注释外
-                            # 尝试找到原始内容中函数名的位置
-                            func_pattern_in_original = r'\b' + re.escape(func_name) + r'\s*\([^)]*\)'
+                            # 检查函数声明是否在注释外
+                            func_pattern_in_original = r'\b' + re.escape(func_name) + r'\s*\([^)]*\)\s*;'
                             func_match = re.search(func_pattern_in_original, content)
                             
                             if func_match:
-                                # 检查函数名的位置是否在注释外
                                 func_pos = func_match.start()
                                 if func_pos < len(not_in_comment) and not_in_comment[func_pos]:
-                                    # 保存函数定义信息
-                                    self.function_defs[file_path][func_name] = {
-                                        'line': approximate_pos if approximate_pos > 0 else 1
-                                    }
-                                    # 保存函数名到文件路径的映射
-                                    self.func_to_file[func_name] = file_path
+                                    # 保存函数声明信息（不覆盖函数定义）
+                                    if func_name not in self.function_defs.get(file_path, {}):
+                                        self.function_declarations[file_path][func_name] = {
+                                            'line': approximate_pos if approximate_pos > 0 else 1
+                                        }
+            
             except Exception as e:
                 print(f"读取文件 {file_path} 时出错: {e}")
         
-        # 计算总函数数量
-        total_functions = sum(len(funcs) for funcs in self.function_defs.values())
-        print(f"共提取到 {total_functions} 个函数定义")
+        # 计算总声明数量
+        total_declarations = sum(len(decls) for decls in self.function_declarations.values())
+        print(f"共提取到 {total_declarations} 个函数声明")
     
     def remove_comments(self, code):
         """移除代码中的注释"""
@@ -258,8 +397,8 @@ class CCallAnalyzer:
             f.write(f"函数定义数量: {total_functions}\n")
             f.write(f"有调用关系的函数数量: {len(self.function_calls)}\n\n")
             
-            # 按文件分组显示函数定义
-            f.write("\n按文件分组的函数定义清单:\n")
+            # 按文件分组显示函数定义（有函数体的）
+            f.write("\n按文件分组的函数定义清单（仅统计有函数体的函数）:\n")
             f.write("="*80 + "\n")
             
             # 按文件路径排序
@@ -268,12 +407,32 @@ class CCallAnalyzer:
                 file_funcs = self.function_defs[file_path]
                 
                 # 写入文件信息
-                f.write(f"\n[{relative_path}] - 包含 {len(file_funcs)} 个函数\n")
+                f.write(f"\n[{relative_path}] - 包含 {len(file_funcs)} 个函数定义\n")
                 f.write("-"*80 + "\n")
                 
                 # 写入该文件中的所有函数，按行号排序
                 for func_name, info in sorted(file_funcs.items(), key=lambda x: x[1]['line']):
                     f.write(f"  {func_name:<30} | 行号: {info['line']}\n")
+            
+            # 按文件分组显示函数声明（没有函数体，只有声明）
+            total_declarations = sum(len(decls) for decls in self.function_declarations.values())
+            if total_declarations > 0:
+                f.write("\n\n按文件分组的函数声明清单（没有函数体，仅有声明）:\n")
+                f.write("="*80 + "\n")
+                
+                # 按文件路径排序
+                for file_path in sorted(self.function_declarations.keys()):
+                    relative_path = os.path.relpath(file_path, self.root_dir)
+                    file_decls = self.function_declarations[file_path]
+                    
+                    if len(file_decls) > 0:
+                        # 写入文件信息
+                        f.write(f"\n[{relative_path}] - 包含 {len(file_decls)} 个函数声明\n")
+                        f.write("-"*80 + "\n")
+                        
+                        # 写入该文件中的所有函数声明，按行号排序
+                        for func_name, info in sorted(file_decls.items(), key=lambda x: x[1]['line']):
+                            f.write(f"  {func_name:<30} | 行号: {info['line']}\n")
             
             # 按文件分组显示函数调用关系
             f.write("\n\n按文件分组的函数调用关系:\n")
@@ -300,10 +459,12 @@ class CCallAnalyzer:
                         f.write(f"  {func_name} 调用了:")
                         for callee in sorted(self.function_calls[func_name]):
                             # 找到被调用函数所在的文件
+                            # 注意：被调用函数可以不在当前分析的目录中有定义
                             if callee in self.func_to_file:
                                 callee_file = os.path.relpath(self.func_to_file[callee], self.root_dir)
                             else:
-                                callee_file = "(未知)"
+                                # 被调用函数未在当前目录中找到定义（可能是外部函数、系统函数或库函数）
+                                callee_file = "(未定义)"
                             f.write(f"\n    -> {callee} [{callee_file}]")
                         f.write("\n\n")
                     else:
@@ -352,14 +513,15 @@ class CCallAnalyzer:
         print(f"报告生成完成: {output_file}")
         print(f"DOT格式调用图: {dot_file}")
     
-    def analyze(self, output_file='call_relations.txt', dot_file='call_graph.dot'):
+    def analyze(self, output_file='call_relations.txt', dot_file='call_graph.dot', debug=False):
         """执行完整的分析流程"""
         self.find_c_files()
         if not self.c_files:
             print("错误：未找到任何C语言文件！")
             return False
         
-        self.extract_function_defs()
+        self.extract_function_defs(debug=debug)
+        self.extract_function_declarations()
         self.extract_function_calls()
         self.generate_report(output_file, dot_file)
         return True
@@ -374,6 +536,7 @@ def main():
                         help='DOT调用图输出文件路径 (默认: 当前目录下的call_graph.dot)')
     parser.add_argument('-w', '--whitelist', help='白名单函数文件路径，每行一个函数名')
     parser.add_argument('-f', '--functions', nargs='+', help='直接指定要忽略的函数名列表')
+    parser.add_argument('--debug', action='store_true', help='启用调试模式，输出详细的提取信息')
     
     args = parser.parse_args()
     
@@ -391,7 +554,7 @@ def main():
     if analyzer.whitelist:
         print(f"总计忽略 {len(analyzer.whitelist)} 个白名单函数")
     
-    analyzer.analyze(args.output, args.graph)
+    analyzer.analyze(args.output, args.graph, debug=args.debug)
 
 if __name__ == '__main__':
     main()

@@ -1,0 +1,926 @@
+================================================================================
+函数对比分析报告
+================================================================================
+
+统计信息:
+--------------------------------------------------------------------------------
+funs.txt 中的文件数: 35
+程序输出中的文件数: 6
+共同文件数: 2
+缺失的函数总数: 0
+多出的函数总数: 0
+
+
+================================================================================
+funs.txt 中有但程序输出中缺失的文件:
+================================================================================
+
+[abmain.c] - 1 个函数
+--------------------------------------------------------------------------------
+  main
+
+[crc32.c] - 3 个函数
+--------------------------------------------------------------------------------
+  crc32_calculate
+  crc32_check
+  crc32_append
+
+[DataTrend.c] - 45 个函数
+--------------------------------------------------------------------------------
+  PeriodRefreshD
+  InitDataTrend
+  InitTemplate_TrendD
+  InitTrendInfoD
+  InitStateD
+  GetQuarterDataD
+  ReadTrendInformationD
+  ShowHisData
+  ShowFirstTime
+  UpdateTrendData
+  recValFormat
+  SetListData
+  ClearListData
+  ShowTrendTableLineD
+  PeriodRefreshFollowD
+  btnFollowD
+  btnHistoryD
+  SetNewStartTimeD
+  GetNewStartTimeD
+  SetNewStartTimeInitD
+  SetNewStartTimeInitD_Touch
+  GetNewStartTimeD_Touch
+  btnTimeOKD
+  btnPreRowD
+  btnNextRowD
+  btnPrePageD
+  btnNextPageD
+  btnLastPageD
+  btnTimeStepD
+  btnDestroyTrendD
+  btnSetStepD
+  SetStepStateD
+  is_numberD
+  ReportMessageD
+  btnCurveD
+  SetPeriodD
+  set_trend_unit
+  set_data_trend_unit_label
+  set_trend_curve_unit_label
+  set_trend_panel_unit_label
+  convert_val_to_string
+  convert_flaot_to_string
+  make_sci_val
+  make_int_val
+  make_float_val
+
+[DefineList.c] - 40 个函数
+--------------------------------------------------------------------------------
+  InitDefineList
+  InitTemplate_Def
+  InitSelectState
+  InitVarTagArrayDef
+  btnSelectAnaD
+  bbtnSelectDigD
+  btnSelectDevD
+  InitVarOrg
+  GetVarTagArrayOrg
+  ShowListVarOrg
+  ClearListVarOrg
+  SetBtnEnableStateOrg
+  ShowVarNumberOrg
+  SetVarStateOrg
+  btnChoosePN_Org
+  btnPrePage_Org
+  btnNextPage_Org
+  InitVarSel
+  GetVarTagArraySel
+  ShowListVarSel
+  ClearListVarSel
+  SetBtnEnableStateSel
+  ShowVarNumberSel
+  SetVarStateSel
+  btnChoosePN_Sel
+  btnPrePage_Sel
+  btnNextPage_Sel
+  btnAddPN
+  btnDelPN
+  btnReplacePN
+  btnAllDel
+  ReportMessageDef
+  InitArrDef
+  isArrFullDef
+  isArrEmptyDef
+  InsertArrDef
+  AppendArrDef
+  RemoveArrDef
+  ReplaceArrDef
+  btnOpenVarList
+
+[DrawPTGraph.c] - 30 个函数
+--------------------------------------------------------------------------------
+  pt_init_canvas
+  pt_draw_panel
+  pt_set_coordinates_interval
+  pt_draw_grid
+  pt_draw_x_axes
+  pt_draw_y_axes
+  pt_refresh
+  pt_set_range
+  pt_coordinate_conversion
+  pt_set_closed_region
+  pt_set_saturation_curve
+  pt_set_dynamic_curve
+  pt_draw_closed_region
+  pt_draw_saturation_curve
+  pt_draw_dynamic_curve
+  pt_set_flashing_point_begin
+  pt_set_flashing_point_end
+  pt_set_limit_curve
+  pt_draw_limit_curve
+  pt_set_boundary
+  pt_draw_boundary
+  pt_set_srr_msg
+  pt_check_point
+  pt_check_P
+  pt_check_T
+  pt_convert_invalid_coordinate
+  pt_change_point
+  pt_chagee_2points
+  CalcValP
+  CalcValT
+
+[DrawTrendGraph.c] - 45 个函数
+--------------------------------------------------------------------------------
+  init_canvas
+  set_curve_data
+  draw_panel
+  draw_grid
+  draw_x_axes
+  draw_realtime_time
+  draw_y_axes
+  GetScaleValue
+  draw_y_axes_analog
+  draw_y_axes_digital
+  move_y_axes
+  get_data
+  selected_line
+  release_line
+  refresh
+  draw_realtime_curve
+  draw_history_curve
+  coordinate_conversion
+  coordinate_conversion_digital
+  coordinate_conversion_analog
+  draw_curve
+  move_line
+  get_Yaxesposition_new
+  set_Yaxesposition_new
+  get_uplimit_new
+  get_downlimit_new
+  move_curve
+  modify_curve
+  move_curve_up
+  move_curve_down
+  reset_curve
+  zoom_range
+  get_analog_extreme_value
+  set_time
+  set_curve_points_number
+  set_curve_points_numberMax
+  set_draw_type
+  set_digital_line_num
+  set_digital_selectedNo
+  set_analog_selectedNo
+  set_Yaxesposition_init
+  set_trendvarnum_max
+  get_SelectedPointID
+  convert_invalid_coordinate
+  reset_translation
+
+[GAL_QNX.c] - 12 个函数
+--------------------------------------------------------------------------------
+  gal_draw_line
+  gal_draw_polyline
+  gal_draw_rectangle
+  gal_draw_rectangle2
+  gal_draw_polygon
+  gal_set_pen_style
+  gal_set_brush_style
+  gal_release_object_brush
+  gal_release_object_pen
+  gal_draw_text
+  gal_draw_begin
+  gal_draw_end
+
+[Login.c] - 10 个函数
+--------------------------------------------------------------------------------
+  Click_LoginOK
+  Login_Init
+  set_admin_button
+  set_operate_button
+  button_state
+  login_cancel
+  set_all_disable
+  set_all_enable
+  Login_Period
+  CheckBox_Time_Click0
+
+[LogManage.c] - 5 个函数
+--------------------------------------------------------------------------------
+  ReadLogByType
+  readFaultLogBuf
+  readSysLogBuf
+  readOperationLogBuf
+  UpdateReqErrTimes
+
+[MyMD5.c] - 6 个函数
+--------------------------------------------------------------------------------
+  MD5Init
+  MD5Update
+  MD5Final
+  MD5Encode
+  MD5Decode
+  MD5Transform
+
+[photon_calitime_setup.c] - 10 个函数
+--------------------------------------------------------------------------------
+  photon_calitime_setup
+  cTime_confirm
+  cTime_execute
+  cTime_cancel
+  init_calitimne_sys_info
+  check_text_string
+  check_leap_year
+  check_day
+  cTime_init
+  set_rtc_time
+
+[photon_data_com.c] - 61 个函数
+--------------------------------------------------------------------------------
+  photon_init_trend_data
+  photon_update_follow_tdata
+  photon_require_history_tdata
+  make_req_tdata_buf
+  recv_ack_tdata_buf
+  check_trend_time
+  check_trend_difftime
+  photon_require_history_ptdata
+  make_req_ptdata_buf
+  recv_ack_ptdata_buf
+  photon_init_sys_info
+  photon_init_real_list
+  photon_init_bool_list
+  photon_init_dev_list
+  photon_init_cus_list
+  photon_update_var_list
+  parse_sys_info_var
+  set_scid_time
+  destroy_scid_keyboard
+  photon_sort_var_list
+  reverse_real_var_list
+  reverse_bool_var_list
+  reverse_dev_var_list
+  reverse_cus_var_list
+  photon_init_trend_panel
+  photon_req_follow_point
+  photon_req_history_point
+  make_req_tdata
+  recv_ack_tdata
+  recv_tdata_msg
+  set_ack_tdata
+  photon_req_log
+  recv_ldata_msg
+  photon_show_msg
+  photon_init_oper_panel
+  check_panel_var_info
+  photon_send_oper_log
+  photon_reset_panel_vars
+  recv_msg_queue
+  bIsCurWin
+  set_scid_button_state
+  set_btn_float
+  set_btn_sink
+  set_btn_gui
+  photon_close_panel
+  CalcDelayTime
+  bCheckBeginTime
+  CalcMaxBeginTime
+  convert_u8_to_val
+  photon_get_dig_panel_info
+  photon_get_ana_panel_info
+  photon_get_instruction_id
+  photon_get_control_status
+  photon_get_monitor_status
+  photon_open_panel_by_widget_pointer
+  photon_close_panel_by_widget_pointer
+  photon_close_all_panels_by_widget_pointer
+  photon_open_panel_by_dev_id
+  is_dev_widget
+  init_scid_panel_links
+  init_scid_panel_timer_id
+
+[photon_error.c] - 13 个函数
+--------------------------------------------------------------------------------
+  create_err_queue
+  delete_err_queue
+  enter_err_queue
+  replace_cur_error
+  is_display_err_type
+  check_cur_error
+  is_exist_err_type
+  send_err_type
+  photon_send_display_log
+  photon_send_oper_data
+  send_err_log
+  send_fix_log
+  photon_send_init_failure
+
+[photon_export.c] - 24 个函数
+--------------------------------------------------------------------------------
+  InitExport
+  btnLog_activate
+  btnTrendactivate
+  btnSnapshot_activate
+  btnPrepage_activate
+  btnNextpage_activate
+  btnConfirm_activate
+  btnStop_activate
+  groupPtFile_activate
+  InitTemplate_Export
+  req_file_info
+  set_button_state
+  req_export
+  set_btn_up
+  set_btn_down
+  set_btn_gui
+  make_req_buffer
+  recv_ack_buffer
+  set_file_list
+  set_file_sel_state
+  init_export_widget
+  clear_file_list
+  stop_export
+  sort_files_by_name
+
+[photon_file_parse.c] - 62 个函数
+--------------------------------------------------------------------------------
+  parse_download_cfg_prg
+  parse_download_var_csv
+  parse_trend_var
+  parse_trend_group
+  parse_vars_info
+  set_trend_info
+  parse_download_photon_index
+  parse_operation_log_file
+  parse_sys_log_file
+  parse_fault_log_file
+  full_log_sort
+  log_insert_sort
+  edit_oper_log
+  edit_sys_log
+  edit_err_log
+  string_delete_space
+  parse_var_list
+  real_var_list_sort
+  bool_var_list_sort
+  dev_var_list_sort
+  check_comma_size
+  check_internal_link
+  check_user_link_id
+  set_internal_link_id
+  replace_special_character
+  str_right_shift
+  parse_download_patent_csv
+  parse_para_var
+  parse_var_attr
+  check_para_scid_var
+  bool_limit_float_to_string
+  replace_special_symbol
+  replace_greater_symbol
+  replace_less_symbol
+  parse_border_color_msg
+  parse_dev_widget_border_color
+  parse_panel_btn_text_info
+  parse_download_panel_cfg_csv
+  parse_download_dig_panel_csv
+  parse_download_ana_panel_csv
+  parse_panel_msg_info
+  parse_dig_panel_label_info
+  parse_ana_panel_label_info
+  parse_one_panel_msg
+  parse_scid_color_text
+  parse_var_attr_by_char
+  text_to_scid_color
+  parse_one_panel_label
+  find_string
+  parse_one_dig_panel
+  parse_one_ana_panel
+  parse_scid_num_text
+  parse_scid_btn_text
+  parse_panel_msg_text
+  parse_dig_panel_label_text
+  parse_scid_var_text
+  parse_scid_dev_type
+  parse_panel_limit_text
+  parse_panel_type_text
+  make_one_mix_panel
+  is_reset_btn_text
+  parse_disp_ver_ini
+
+[photon_init.c] - 46 个函数
+--------------------------------------------------------------------------------
+  PeriodRefreshInitPageData
+  PeriodRefreshInitPageTitle
+  clean_timer
+  resetTimerFunc
+  timer_monitor_fun_period_10000ms
+  phread_timer_monitor_10000ms_func
+  phread_timer_monitor_10000ms
+  init_g_timerArray
+  photon_init
+  init_global_vars
+  init_msg_queue
+  init_file_data
+  send_init_flag
+  ctrl_init_confirm
+  init_diag_seq
+  send_diag_seq
+  update_sys_info
+  req_run_data
+  recv_ack_ddata
+  req_control_status
+  scid_record_aps_init
+  refresh_slider
+  handle_modes
+  handle_mode_op
+  handle_mode_su
+  handle_mode_is
+  check_login_state
+  check_screen_test
+  check_screen_clean
+  check_nc_screen_valid
+  check_internal_id
+  receive_disp_export
+  phread_init_100ms
+  phread_fun_100ms
+  period_fun_100ms
+  BlockOperDiag
+  AddZeroToStr
+  set_cur_sink_btn
+  memory_allocate
+  memory_free
+  error
+  set_init_image
+  get_export_err_msg
+  set_cur_sink_btn_pos
+  float_cur_sink_btn
+  increase_timer_calltimes
+
+[photon_keyboard_setup.c] - 10 个函数
+--------------------------------------------------------------------------------
+  photon_keyboard_setup
+  key_input
+  key_back
+  key_caps
+  key_done
+  key_del
+  select_win
+  move_win
+  hotkeyClickCB
+  give_focus_to_keyboard
+
+[photon_module_parse.c] - 34 个函数
+--------------------------------------------------------------------------------
+  make_modlule_parse
+  get_user_data
+  set_resources
+  set_label
+  set_operating_button
+  set_information_display
+  set_analog_display
+  set_digital_display
+  set_threshold_value
+  set_threshold_value_multizone
+  set_widget_block_state
+  cal_logic_val
+  cal_bool_logic_val
+  cal_int_logic_val
+  cal_real_logic_val
+  set_widget_run_state
+  set_line
+  set_progress
+  set_dev_widget_run_state
+  set_bar_graph
+  init_bar_graph_handle
+  set_group_controller
+  set_set_value
+  set_sring_controller
+  set_pre_selector
+  set_group_con_selector
+  set_gp_controller
+  set_widget_color
+  set_dev_widget_direction
+  set_border_color_resource
+  set_dev_widget_color
+  set_dev_widget_Q
+  set_Q_resource
+  set_color_resource
+
+[photon_module_setup.c] - 15 个函数
+--------------------------------------------------------------------------------
+  PeriodRefreshModule
+  photon_module_setup
+  check_widget_var_size
+  msg_box_setup
+  msg_box_close
+  check_app_mode
+  check_trend_cruve
+  get_oper_button_pos
+  check_dev_widget_vars
+  check_group_controller_vars
+  check_set_value_vars
+  check_sring_controller_vars
+  check_pre_selector_vars
+  check_group_con_selector_vars
+  check_gp_controller_vars
+
+[photon_mq.c] - 7 个函数
+--------------------------------------------------------------------------------
+  mqueue_create
+  mqueue_close
+  mqueue_send
+  mqueue_receive
+  mqueue_file_req_recv
+  mqueue_update
+  mqueue_init
+
+[photon_mq_protocol.c] - 29 个函数
+--------------------------------------------------------------------------------
+  mq_make_frame
+  mq_make_app
+  mq_make_head
+  mq_require_file_data
+  mq_require_display_data
+  mq_require_trend_data
+  mq_make_log_data
+  mq_make_snapshot_data
+  mq_require_export_data
+  mq_make_exe_seq
+  mq_make_init_data
+  mq_make_oper_data
+  mq_require_log_data
+  mq_require_file_info
+  mq_parse_frame
+  mq_parse_head
+  mq_parse_app
+  mq_receive_file_data
+  mq_receive_dispaly_data
+  mq_receive_trend_data
+  mq_receive_export_data
+  mq_receive_log_data
+  mq_parse_oper_log
+  mq_parse_sys_log
+  mq_parse_err_log
+  mq_parse_all_log
+  check_log_type
+  edit_all_log
+  mq_receive_file_info
+
+[photon_oper_setup.c] - 4 个函数
+--------------------------------------------------------------------------------
+  nextCb
+  lastCb
+  photon_oper_setup
+  hPage_setup
+
+[photon_patent.c] - 25 个函数
+--------------------------------------------------------------------------------
+  patent_list_set_up
+  patent_list_refresh
+  patent_var_send
+  select_patent_var
+  btn_page_up_activate
+  btn_page_down_activate
+  btn_pre_page_activate
+  btn_next_page_acitvate
+  btn_done_activate
+  btn_execute_activate
+  patent_header_int
+  patent_text_init
+  patent_button_init
+  make_patent_list_item
+  set_arg_text_string
+  check_follow_val
+  patent_text_clear
+  set_widget_pos
+  set_up_page
+  set_down_page
+  set_normal_page
+  check_patent_val_bool
+  check_patent_val_real
+  send_patent_command
+  patent_val_float_to_devs
+
+[photon_snapshot.c] - 1 个函数
+--------------------------------------------------------------------------------
+  photon_snapshot
+
+[PTCurve.c] - 14 个函数
+--------------------------------------------------------------------------------
+  PeriodRefreshPT
+  InitPTCurve
+  InitStatePT
+  InitDrawPTGraph
+  RefreshDrawPTCurve
+  ReDrawPTcurve
+  InitDrawPTCurve
+  btnDestroyPT
+  ShowBackGround
+  ShowPTMessage
+  ReadPTInfo_RealTime
+  ReadPTInfo_History
+  InsertLineData
+  init_pt_trend_widget
+
+[scid_time.c] - 9 个函数
+--------------------------------------------------------------------------------
+  scid_time_to_std_sec
+  scid_time_to_std_time
+  scid_time_to_tm
+  tm_to_scid_time
+  scid_time_diff
+  std_sec_to_scid_time
+  scid_time_date_check
+  scid_time_info_to_tm
+  scid_time_to_time_info
+
+[screenclear.c] - 2 个函数
+--------------------------------------------------------------------------------
+  screenClear_opening
+  sClear_CB
+
+[screentest.c] - 21 个函数
+--------------------------------------------------------------------------------
+  SetGreen
+  SetReset
+  btnA_Click
+  btnA_Release
+  btnB_Click
+  btnB_Release
+  btnC_Click
+  btnC_Release
+  btnD_Click
+  btnD_Release
+  btn1_Click
+  btn1_Release
+  btn2_Click
+  btn2_Release
+  btn3_Click
+  btn3_Release
+  btn4_Click
+  btn4_Release
+  btnClose_Click
+  screenTest_opeing
+  screenTest_exit
+
+[TrendCurve.c] - 63 个函数
+--------------------------------------------------------------------------------
+  PeriodRefreshFollow
+  PeriodRefresh
+  InitTrendCurve
+  InitTrendInfo
+  InitTemplate_TrendC
+  ReadTrendInfo_RealTime
+  ReadTrendInfo_History
+  SetScaleValue
+  SetCurValState
+  ShowTrendTableLine
+  button_state_trend
+  Inverse
+  InitState
+  SetCheckBoxState1
+  SetCheckBoxState2
+  ClickCheckBox
+  ClearTrendTableLine
+  ClickTrendTableLine
+  SetTrendTableLineState
+  InitDrawPanelTrend
+  InitDrawPanelTG
+  InsetrCurvetime
+  GetUpAndDownLimitOri
+  InsertUpAndDownLimit
+  SetTrendPanelEnable
+  SetColor
+  SetSelectedNo
+  SetDisplayNo
+  DrawTrendLine
+  RefreshTrendCurve
+  GetQuarterData
+  btnFollow
+  btnHistory
+  btnPreRow
+  btnPrePage
+  btnNextRow
+  btnNextPageTrend
+  btnLastPage
+  btnTimeStep
+  MoveLineTrend
+  SelectedLineTrend
+  ReleaseLineTrend
+  SetNewStartTime
+  GetNewStartTime
+  SetNewStartTimeInit
+  SetNewStartTimeInit_Touch
+  GetNewStartTime_Touch
+  btnTimeOK
+  OpenTrendPanel
+  btnDestroyTrend
+  ReportMessage
+  btnRangeOK
+  btnEnlarge
+  btnNarrow
+  btnRestore
+  is_number
+  btnSetStep
+  SetStepState
+  btnData
+  SetPeriod
+  InitTimeStamp
+  clear_trend_curve_unit
+  set_display_format
+
+[TrendGroup.c] - 18 个函数
+--------------------------------------------------------------------------------
+  TestInsertData
+  TestInsertData1
+  InitTrendGroup
+  InitTemplate_TrendG
+  ReadTrendGroupInformation
+  ShowTrendGroupInfo
+  ClickGroupInfoBar
+  ClearGroupInfoBarState
+  btnDestoryGroup
+  btnPrePageG
+  btnNextPageG
+  btnPageUpG
+  btnPageDownG
+  SetBtnEnableStateTrendG
+  button_state_trendG
+  ReportMessageG
+  PtBtnOpenTrend
+  set_group_widget_ptr
+
+[TrendPanel.c] - 34 个函数
+--------------------------------------------------------------------------------
+  InitTrendPanel
+  GetWidgetName
+  InitTrendInfo0
+  InitState0
+  InitDrawPanelTrend0
+  InitDrawPanelTG0
+  MoveLineTrend0
+  SelectedLineTrend0
+  ReleaseLineTrend0
+  InsetrCurvetime0
+  InsertUpAndDownLimit0
+  DrawTrendLine0
+  RefreshTrendCurve0
+  GetQuarterData0
+  btnPreRow0
+  btnNextRow0
+  btnPrePage0
+  btnNextPageTrend0
+  btnLastPage0
+  btnTimeStep0
+  ReadTrendInfo_RealTime0
+  ReadTrendInfo_History0
+  SetScaleValue0
+  SetCurValState0
+  ShowTrendTableLine0
+  SetColor0
+  SetSelectedNo0
+  PeriodRefresh0
+  PeriodRefreshFollow0
+  btnDestroyTrendP
+  SetStepState0
+  SetPeriod0
+  InitTimeStamp
+  set_display_format
+
+[ValveEquipPanel.c] - 2 个函数
+--------------------------------------------------------------------------------
+  btnOperating1_Click
+  btnOperating02_Click
+
+[VariableList.c] - 47 个函数
+--------------------------------------------------------------------------------
+  InitVarList
+  InitVar
+  InitState_Var
+  InitTemplate_Var
+  InitVarTagArray
+  GetVarTagArray
+  ShowVarList
+  ShowVarNumber
+  PeriodRefreshVarList
+  ClearListVar
+  SetBtnEnableStateVar
+  btnSelectAna
+  btnSelectDig
+  btnSelectDev
+  btnPrePageVar
+  btnNextPageVar
+  btnPageUpVar
+  btnPageDownVar
+  button_state_Var
+  CloseVarList
+  btnSelectPage
+  ReportMessageVar
+  VarQuery
+  btnAccQuery
+  btnFuzQuery
+  btnCancelQuery
+  ClearQuery
+  btnAscendSort
+  btnDescendSort
+  SetSortBtnState
+  InitVarTagArrayBySort
+  show_var_detail
+  check_var_detail
+  check_gpuinfo
+  check_station_id
+  check_station_type
+  check_dev_id
+  check_dev_type
+  check_reactory_type
+  check_xml_ver
+  check_app_mode
+  check_work_mode
+  check_gpu_update_enable
+  check_work_mode_switch
+  check_sys_time
+  check_gpio1_net_input
+  check_disp_ver
+
+
+================================================================================
+程序输出中有但 funs.txt 中缺失的文件:
+================================================================================
+
+[Log.h] - 0 个函数
+--------------------------------------------------------------------------------
+
+[container.h] - 0 个函数
+--------------------------------------------------------------------------------
+
+[hzPanel1a.c] - 41 个函数
+--------------------------------------------------------------------------------
+  change_widgetState_hzP1a
+  trace_hzP1a_orderBtn_is_auto_up
+  check_app_mode
+  set_hzPanel1a_block_state
+  end_dragging_hzP1a_win
+  get_PNames_hzPanel1a_configuration
+  set_hzPanel1a_equipmentWidget
+  set_hzPanel1a_ts_rs_state
+  set_hzPanel1a_Q_State
+  set_equip_status_hzPanel1a
+  set_hzPanel1a_equipmentName
+  set_widget_show_hide_hzPanel1a
+  set_hzPanel1a_quipment_hide
+  hzPanel1a_init
+  start_dragging_hzP1a_win
+  btnActivate_hzP1a_click
+  btnAutoManu_hzP1a_click
+  btnIncrease_hzP1a_arm
+  btnIncrease_hzP1a_disarm
+  btnDecrease_hzP1a_arm
+  btnDecrease_hzP1a_disarm
+  btnFastSlow_hzP1a_arm
+  btnFastSlow_hzP1a_disarm
+  btnExecute_hzP1a_arm
+  btnExecute_hzP1a_disarm
+  btnExit_hzP1a_click
+  hzPanel1a_setUp
+  hzPanel1a_periodRefersh
+  set_btnState_by_mode_hzP1a
+  hzPanel1a_NC_screen_setUp
+  set_hzPanel1a_NC_screen_equipmentWidget
+  set_hzPanels_equipment_widgets_close
+  set_pumps_widgets_close
+  set_valves_widgets_close
+  set_dampers_widgets_close
+  set_breakers_widgets_close
+  set_specal_widgets_close
+  Set_hzPanel1a_NCWidgetIndex
+  replace_special_character_hzp1a
+  str_right_shift_one_hzp1a
+  write_log
+
+[hzPanel1a.h] - 0 个函数
+--------------------------------------------------------------------------------
+
+
+================================================================================
+对比完成
+================================================================================
