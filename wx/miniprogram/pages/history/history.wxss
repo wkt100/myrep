@@ -1,0 +1,20 @@
+.container { padding: 40rpx; background: #f7f8fa; min-height: 100vh; }
+.header { margin-bottom: 40rpx; }
+.title { font-size: 40rpx; font-weight: bold; }
+
+.day-card { background: #fff; border-radius: 20rpx; padding: 30rpx; margin-bottom: 30rpx; box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.02); }
+.day-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1rpx solid #f0f0f0; padding-bottom: 20rpx; margin-bottom: 20rpx; }
+.day-date { font-weight: bold; color: #333; }
+
+.rate-badge { font-size: 22rpx; padding: 4rpx 16rpx; border-radius: 20rpx; }
+.rate-badge.high { background: #e8f9ed; color: #27ae60; }
+.rate-badge.mid { background: #fff8e6; color: #f39c12; }
+.rate-badge.low { background: #fff0f0; color: #e74c3c; }
+
+.task-mini-item { display: flex; align-items: center; margin-bottom: 15rpx; font-size: 26rpx; color: #666; }
+.dot { width: 12rpx; height: 12rpx; border-radius: 50%; margin-right: 15rpx; }
+.dot.done { background: #27ae60; }
+.dot.fail { background: #e74c3c; }
+.dot.pending, .dot.doing { background: #bdc3c7; }
+.task-name { flex: 1; }
+.task-status-text { font-size: 22rpx; color: #999; }

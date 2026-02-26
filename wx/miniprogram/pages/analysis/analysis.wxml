@@ -1,0 +1,31 @@
+<view class="container">
+  <view class="header">
+    <text class="title">执行看板</text>
+  </view>
+
+  <view class="stats-grid">
+    <view class="stat-card main">
+      <text class="stat-label">总完成率</text>
+      <text class="stat-value">{{stats.completionRate}}%</text>
+    </view>
+    
+    <view class="stat-card">
+      <text class="stat-label">累计任务</text>
+      <text class="stat-value-s">{{stats.totalTasks}}</text>
+    </view>
+    
+    <view class="stat-card">
+      <text class="stat-label">坚持天数</text>
+      <text class="stat-value-s">{{stats.totalDays}}</text>
+    </view>
+  </view>
+
+  <view class="analysis-card">
+    <view class="card-title">执行洞察</view>
+    <view class="insight-item">
+      <text class="insight-label">主要瓶颈</text>
+      <text class="insight-value">{{stats.topFailReason}}</text>
+    </view>
+    <view class="insight-tip">💡 提示：分析失败原因能帮你更好地规划时间块。</view>
+  </view>
+</view>

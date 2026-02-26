@@ -1,0 +1,36 @@
+<view class="container">
+  <view class="header">
+    <text class="date-text">2026年2月26日</text>
+    <text class="main-title">今日执行系统</text>
+  </view>
+
+  <!-- 任务输入区 -->
+  <view class="input-card" wx:if="{{tasks.length < 3}}">
+    <input class="input-title" placeholder="第一步：你想做什么？" value="{{newTaskTitle}}" bindinput="onTitleInput" />
+    <input class="input-standard" placeholder="第二步：完成标准是什么？" value="{{newTaskStandard}}" bindinput="onStandardInput" />
+    <button class="add-btn" bindtap="addTask">添加至今日三件事 ({{tasks.length}}/3)</button>
+  </view>
+
+  <!-- 任务列表区 -->
+  <view class="task-list">
+    <view class="section-title">今日最重要的三件事</view>
+    <view wx:if="{{tasks.length === 0}}" class="empty-tip">今日暂无任务，请设定你的目标</view>
+    
+    <block wx:for="{{tasks}}" wx:key="_id">
+      <view class="task-item {{item.status}}">
+        <view class="task-info">
+          <text class="task-title">{{item.title}}</text>
+          <text class="task-standard">🎯 标准: {{item.standard}}</text>
+        </view>
+        
+        <view class="action-area">
+          <button wx:if="{{item.status === 'pending'}}" size="mini" class="btn-start" bindtap="updateStatus" data-id="{{item._id}}" data-status="doing">开始</button>
+          <button wx:if="{{item.status === 'doing'}}" size="mini" class="btn-done" bindtap="updateStatus" data-id="{{item._id}}" data-status="done">完成</button>
+          <button wx:if="{{item.status === 'doing'}}" size="mini" class="btn-fail" bindtap="updateStatus" data-id="{{item._id}}" data-status="fail">失败</button>
+          <text wx:if="{{item.status === 'done'}}" class="status-done">已完成 ✓</text>
+          <text wx:if="{{item.status === 'fail'}}" class="status-fail">已失效 ✗</text>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

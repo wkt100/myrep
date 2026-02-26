@@ -1,0 +1,26 @@
+.container { padding: 40rpx; background: #f7f8fa; min-height: 100vh; }
+.header { margin-bottom: 50rpx; }
+.date-text { font-size: 26rpx; color: #999; display: block; }
+.main-title { font-size: 52rpx; font-weight: bold; color: #333; }
+
+.input-card { background: #fff; padding: 30rpx; border-radius: 20rpx; box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.05); margin-bottom: 40rpx; }
+.input-title { font-size: 32rpx; border-bottom: 1rpx solid #eee; padding: 20rpx 0; }
+.input-standard { font-size: 28rpx; padding: 20rpx 0; color: #666; }
+.add-btn { background: #007aff; color: #fff; font-size: 28rpx; border-radius: 12rpx; margin-top: 20rpx; }
+
+.section-title { font-size: 28rpx; color: #999; margin-bottom: 20rpx; font-weight: bold; }
+.task-item { background: #fff; padding: 30rpx; border-radius: 20rpx; margin-bottom: 20rpx; display: flex; justify-content: space-between; align-items: center; }
+.task-item.doing { border-left: 8rpx solid #007aff; }
+.task-item.done { opacity: 0.6; background: #f0f0f0; }
+
+.task-info { flex: 1; display: flex; flex-direction: column; }
+.task-title { font-size: 34rpx; font-weight: bold; color: #333; }
+.task-standard { font-size: 24rpx; color: #666; margin-top: 10rpx; }
+
+.action-area { margin-left: 20rpx; }
+.btn-start { background: #e1f0ff; color: #007aff; }
+.btn-done { background: #4cd964; color: #fff; }
+.btn-fail { background: #ff3b30; color: #fff; margin-left: 10rpx; }
+.status-done { color: #4cd964; font-weight: bold; font-size: 28rpx; }
+.status-fail { color: #ff3b30; font-weight: bold; font-size: 28rpx; }
+.empty-tip { text-align: center; color: #ccc; padding-top: 100rpx; }

@@ -1,0 +1,35 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/history/history",
+    "pages/analysis/analysis"
+  ],
+  "window": {
+    "backgroundColor": "#F7F8FA",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F7F8FA",
+    "navigationBarTitleText": "每日执行系统",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#007AFF",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "今日"
+      },
+      {
+        "pagePath": "pages/history/history",
+        "text": "历史"
+      },
+      {
+        "pagePath": "pages/analysis/analysis",
+        "text": "分析"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

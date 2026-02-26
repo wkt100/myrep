@@ -1,0 +1,18 @@
+.container { padding: 40rpx; background: #f7f8fa; min-height: 100vh; }
+.header { margin-bottom: 40rpx; }
+.title { font-size: 40rpx; font-weight: bold; }
+
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20rpx; margin-bottom: 40rpx; }
+.stat-card { background: #fff; padding: 30rpx; border-radius: 24rpx; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.stat-card.main { grid-column: span 2; background: #007aff; color: #fff; padding: 60rpx; }
+
+.stat-label { font-size: 24rpx; opacity: 0.8; margin-bottom: 10rpx; }
+.stat-value { font-size: 72rpx; font-weight: bold; font-family: 'Courier New', Courier, monospace; }
+.stat-value-s { font-size: 48rpx; font-weight: bold; color: #333; }
+
+.analysis-card { background: #fff; border-radius: 24rpx; padding: 40rpx; }
+.card-title { font-size: 30rpx; font-weight: bold; margin-bottom: 30rpx; color: #333; }
+.insight-item { display: flex; justify-content: space-between; align-items: center; padding: 20rpx 0; border-bottom: 1rpx solid #f0f0f0; }
+.insight-label { color: #999; font-size: 28rpx; }
+.insight-value { color: #e74c3c; font-weight: bold; font-size: 28rpx; }
+.insight-tip { font-size: 22rpx; color: #aaa; margin-top: 30rpx; font-style: italic; }

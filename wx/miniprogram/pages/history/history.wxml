@@ -1,0 +1,24 @@
+<view class="container">
+  <view class="header">
+    <text class="title">执行历史</text>
+  </view>
+
+  <view class="history-list">
+    <block wx:for="{{historyData}}" wx:key="date">
+      <view class="day-card">
+        <view class="day-header">
+          <text class="day-date">{{item.date}}</text>
+          <view class="rate-badge {{item.levelClass}}">完成率 {{item.rate}}%</view>
+        </view>
+        
+        <view class="task-mini-list">
+          <view wx:for="{{item.tasks}}" wx:for-item="task" wx:key="_id" class="task-mini-item">
+            <view class="dot {{task.status}}"></view>
+            <text class="task-name">{{task.title}}</text>
+            <text class="task-status-text">{{task.status === 'done' ? '已达成' : (task.status === 'fail' ? '未执行' : '进行中')}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>
