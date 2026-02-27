@@ -22,7 +22,16 @@
 
 云权限控制：基于 OpenID 的数据隔离，确保个人数据私密安全。
 
-核心组件：自定义卡片式 UI、TabBar 导航系统、数据聚合分析逻辑。
+云开发 SDK：@cloudbase/wx-cloud-client-sdk
+
+核心组件：
+- 自定义卡片式 UI
+- TabBar 导航系统
+- 数据聚合分析逻辑
+- tipsModal 组件（提示弹窗）
+
+脚本工具：
+- uploadCloudFunction.sh（云函数上传脚本）
 
 📂 功能模块
 
@@ -52,21 +61,31 @@
 
 行为洞察：分析失败任务的共同原因，定位个人执行力瓶颈。
 
+能量曲线：展示最近7天的心情变化趋势，通过颜色等级直观反映情绪状态。
+
+时间块地图：分析用户在一天中不同时段（早晨、下午、晚上、深夜）的任务完成情况，找出最佳执行时间。
+
 🚀 快速开始
 
 环境准备：
 
-下载并安装 微信开发者工具。
-
-申请小程序 AppID。
+1. 下载并安装 微信开发者工具。
+2. 申请小程序 AppID。
 
 配置云环境：
 
-点击工具栏“云开发”按钮，开通环境。
+1. 点击工具栏“云开发”按钮，开通环境。
+2. 在云数据库中手动创建三个集合：tasks, time_blocks, daily_summaries。
+3. 配置环境 ID：
+   - 方法一：在 miniprogram/app.js 中直接修改 env 字段为你的环境 ID
+   - 方法二：在 miniprogram/envList.js 中添加环境列表，便于多环境管理
 
-在云数据库中手动创建三个集合：tasks, time_blocks, daily_summaries。
+安装依赖：
 
-在 miniprogram/app.js 中填入你的环境 ID。
+```bash
+# 在 miniprogram 目录下执行
+npm install
+```
 
 运行项目：
 
@@ -74,9 +93,9 @@
 
 📝 数据库集合说明 (Schema)
 
-tasks: _id, title, standard, status, date, createdAt, failReason
+tasks: _id, title, standard, status, date, createdAt, failReason, completedAt
 
-daily_summaries: _id, date, completionRate, focusScore, biggestProblem
+daily_summaries: _id, date, completionRate, focusScore, biggestProblem, avgMood, moods
 
 Developed with ❤️ for Personal Productivity.
 

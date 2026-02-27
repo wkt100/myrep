@@ -28,4 +28,50 @@
     </view>
     <view class="insight-tip">💡 提示：分析失败原因能帮你更好地规划时间块。</view>
   </view>
+
+  <!-- 能量曲线 -->
+  <view class="analysis-card">
+    <view class="card-title">📊 能量曲线（最近7天）</view>
+    <view class="mood-chart">
+      <view class="chart-header">
+        <text class="chart-label">日期</text>
+        <text class="chart-label">心情指数</text>
+      </view>
+      <scroll-view scroll-x class="chart-scroll">
+        <view class="chart-content">
+          <view wx:for="{{moodData}}" wx:key="date" class="mood-bar-container">
+            <view class="mood-bar-wrapper">
+              <view class="mood-bar" style="height: {{item.avgMood * 20}}%; background: {{item.color}}"></view>
+            </view>
+            <text class="mood-date">{{item.date}}</text>
+            <text class="mood-value">{{item.avgMood}}★</text>
+          </view>
+          <view wx:if="{{moodData.length === 0}}" class="empty-tip">暂无数据</view>
+        </view>
+      </scroll-view>
+    </view>
+    <view class="insight-tip">💡 提示：心情指数反映你在完成任务时的能量状态，保持高能量有助于提升执行力。</view>
+  </view>
+
+  <!-- 时间块地图 -->
+  <view class="analysis-card">
+    <view class="card-title">⏰ 时间块地图</view>
+    <view class="time-block-grid">
+      <view wx:for="{{timeBlockData}}" wx:key="label" class="time-block-item">
+        <view class="time-block-header">
+          <text class="time-block-label">{{item.label}}</text>
+          <text class="time-block-count">{{item.count}}次</text>
+        </view>
+        <view class="time-block-bar">
+          <view class="time-block-fill" style="width: {{item.percentage}}%; background: {{item.color}}"></view>
+        </view>
+        <text class="time-block-percentage">{{item.percentage}}%</text>
+      </view>
+    </view>
+    <view class="best-time-tip">
+      <text class="best-time-label">🏆 最佳时段：</text>
+      <text class="best-time-value">{{bestTimeBlock}}</text>
+    </view>
+    <view class="insight-tip">💡 提示：在最佳时段安排重要任务，可以大幅提升完成效率。</view>
+  </view>
 </view>
