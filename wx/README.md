@@ -79,3 +79,28 @@ tasks: _id, title, standard, status, date, createdAt, failReason
 daily_summaries: _id, date, completionRate, focusScore, biggestProblem
 
 Developed with ❤️ for Personal Productivity.
+
+
+
+
+
+# 执行系统 2.0 升级建议清单
+
+### 1. 心理暗示强化 (UI/UX)
+
+-   **任务仪式感**：点击完成时，触发手机短震动 `wx.vibrateShort()`。
+-   **动态名言**：在首页顶部随机显示一句话（如：“专注于最重要的事，其他的都是噪音”）。
+
+### 2. 深度分析 (Data)
+
+-   **能量曲线**：在 `daily_summaries` 集合中记录“完成任务时的心情（1-5星）”。
+-   **时间块地图**：统计你通常在一天中的哪个时段最容易完成“三件事”。
+
+### 3. 云开发高级应用
+
+-   **订阅消息**：每天早上 8:00 自动发送微信通知，提醒你填写今日三件事。
+-   **自动存档**：使用云函数，在每天凌晨 4 点自动将未完成的任务标记为“失败”。
+
+### 4. 社交/监督（可选）
+
+-   **搭档系统**：允许输入另一个人的环境 ID，互相查看对方的完成率（不看内容，只看百分比）。
